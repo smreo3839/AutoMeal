@@ -1,8 +1,6 @@
 
 7
 HELP.md,1\a\1a273f73b7a477b0745593641bd708a6182c7ad5
-r
-Bbuild/generated/'querydsl'/org/zerock/ex01/entity/QBaseEntity.java,c\d\cd2b718132b11cd100d071dc2100591279dac348
 y
 Ibuild/generated/'querydsl'/org/zerock/ex01/entity/QCustomRecipeReply.java,9\1\916ace05fbe51f2964dfa6310032e249bdc65f45
 7
@@ -68,3 +66,15 @@ Ksrc/test/java/org/zerock/ex01/repository/RecipeBookMarkRepositoryTests.java,4\
 .src/main/java/org/zerock/ex01/entity/User.java,e\1\e196eb11f03fbe8330466bf00fb623fd7e5e1c9a
 ^
 .src/main/java/org/zerock/ex01/dto/UserDTO.java,8\7\8770e3a782053afdb455284c151a1315db33c7ac
+b
+2src/main/java/org/zerock/ex01/config/S3Config.java,6\1\615826c24eeb8f2cbc42115a204e24d48c83520e
+r
+Bsrc/main/java/org/zerock/ex01/controller/MainRecipeController.java,9\e\9eb38b049e2e682d129bd86423c98ff4e5c68379
+t
+Dsrc/main/java/org/zerock/ex01/controller/CustomRecipeController.java,d\0\d0fd77723ec11f53f570c54c97df621dcbf333ba
+i
+9src/main/java/org/zerock/ex01/SpringBoootApplication.java,2\f\2faf76a3938e038f0b34036142ffaf3b54e9aefa
+<
+build.gradle,f\0\f07866736216be0ee2aba49e392191aeae700a35
+r
+Bbuild/generated/'querydsl'/org/zerock/ex01/entity/QBaseEntity.java,c\d\cd2b718132b11cd100d071dc2100591279dac348
