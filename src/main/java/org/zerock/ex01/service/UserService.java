@@ -21,7 +21,7 @@ public class UserService {
         }
         final String userEmail = userEntity.getUserEmail();
 
-        if(userRepository.existsByUserEmail(userEmail)){
+        if (userRepository.existsByUserEmail(userEmail)) {
             log.warn("Username already exists {}", userEmail);
             throw new RuntimeException("User already exists");
         }
@@ -30,7 +30,7 @@ public class UserService {
 
     public User getByCredentials(final String userEmail) {
         final User originalUser = userRepository.findByUserEmail(userEmail);
-        log.info("UserTESITNG");
+        log.info("머지테스트123");
         if (originalUser != null) {
             return originalUser;
         }
