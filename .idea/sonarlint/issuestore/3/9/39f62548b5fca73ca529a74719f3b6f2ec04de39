@@ -1,0 +1,9 @@
+
+j	java:S116"URename this field "user_email" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÏùöĞ
+n	java:S116"TRename this field "nick_name" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(•“˜‚ùÿÿÿÿ
+l	java:S116"XRename this field "recipeT_title" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(“Šc
+s	java:S116"YRename this field "recipe_content" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¡ì„ıÿÿÿÿ
+n	java:S116"TRename this field "like_rate" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(­Õ»©ÿÿÿÿÿ
+t	java:S116"ZRename this field "recipe_category" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¢¹†®øÿÿÿÿ
+f	java:S116"RRename this field "cr_hits" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ö‹µC
+l	java:S116"XRename this field "thumbnail_url" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(à½ÑW

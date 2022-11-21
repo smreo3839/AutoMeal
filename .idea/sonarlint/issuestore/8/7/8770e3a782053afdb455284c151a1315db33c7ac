@@ -1,0 +1,11 @@
+
+q	java:S116"URename this field "user_email" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ÿúñ±8Ü…«É0
+u	java:S116"TRename this field "phone_num" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ÿ™¨àúÿÿÿÿ8™Ô¬É0
+p	java:S116"TRename this field "nick_name" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Üü³ƒ8šú¬É0
+d
+java:S1128"BRemove this unused import 'org.zerock.ex01.entity.RecipeBookMark'.(²˜š³ÿÿÿÿÿ8ïØ«É0
+K
+java:S1128	".Remove this unused import 'javax.persistence'.(¬£şç8ïØ«É0
+M
+java:S1128
+"+Remove this unused import 'java.util.List'.(Õë±Äøÿÿÿÿ8ïØ«É0
