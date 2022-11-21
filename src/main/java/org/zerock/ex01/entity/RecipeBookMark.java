@@ -10,7 +10,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-//@ToString(exclude = "user") //연관 관계시 항상 주의
+@ToString(exclude = "user") //연관 관계시 항상 주의
 @DynamicUpdate
 public class RecipeBookMark {
     @Id
