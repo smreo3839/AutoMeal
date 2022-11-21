@@ -13,7 +13,7 @@ import org.zerock.ex01.security.JwtAuthenticationFilter;
 @EnableWebSecurity
 @Slf4j
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-
+//종현아 넣을게?
     @Autowired
     private JwtAuthenticationFilter jwtAuthenticationFilter;
 
