@@ -30,7 +30,7 @@ public class UserService {
 
     public User getByCredentials(final String userEmail) {
         final User originalUser = userRepository.findByUserEmail(userEmail);
-        log.info("머지테스트123");
+        log.info("로그인해볼게용");
         if (originalUser != null) {
             return originalUser;
         }
