@@ -1,13 +1,11 @@
 package org.zerock.ex01.service;
 
+import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.s3.AmazonS3Client;
-import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.ObjectMetadata;
-import com.amazonaws.services.s3.model.PutObjectRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -34,7 +32,6 @@ public class uploadImgServiceImpl implements UploadImgService {
     // @Value("${org.zerock.upload.path}")
     public String uploadPath;
     private final FoodImageRepository foodImageRepository;
-
 
 
     @Autowired
@@ -99,7 +96,7 @@ public class uploadImgServiceImpl implements UploadImgService {
                     S3Bucket, s3Path.replace(File.separatorChar, '/'), multipartFile.getInputStream(), objectMetaData);
 
 
-            String imagePath = amazonS3Client.getUrl(S3Bucket, fileName).toString(); // 접근가능한 URL 가져오기
+            String imagePath = amazonS3Client.getUrl(S3Bucket, s3Path).toString(); // 접근가능한 URL 가져오기
             uploadResultDTO = UploadResultDTO.builder().folderPath(s3Path).uuid(uuid).fileName(fileName).realImageUrl(imagePath).build();
             foodImageRepository.save(dtoToEntity(uploadResultDTO, num));
         }
@@ -151,6 +148,20 @@ public class uploadImgServiceImpl implements UploadImgService {
     public void modify(MultipartFile[] uploadFiles, Long num) {
         foodImageRepository.delImgList(num);
         uploadFile(uploadFiles, num);
+    }
+
+    @Override
+    public void modifyToAwsS3(MultipartFile[] uploadFiles, Long num) throws IOException {
+        List<FoodImage> list = foodImageRepository.getImgList(num);//수정할 게시글의 이미지 리스트 가져오기
+        for (FoodImage foodImage : list) {
+            try {
+                amazonS3Client.deleteObject(UploadImgService.S3Bucket, foodImage.getPath().replace(File.separatorChar, '/'));//s3의 이미지 파일들 삭제
+            } catch (AmazonServiceException e) {
+                log.info(e.getErrorMessage());
+            }
+        }
+        foodImageRepository.delImgList(num);//이미지 db 삭제
+        uploadFileToAwsS3(uploadFiles, num);//수정할 이미지 재 업로드
     }
 
 

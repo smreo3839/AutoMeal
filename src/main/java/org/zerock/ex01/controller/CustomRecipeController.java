@@ -65,10 +65,10 @@ public class CustomRecipeController {
 
     @PostMapping("modify")
     @Transactional
-    public ResponseEntity<Long> modify(CustomRecipeDTO dto) {//게시판 수정 연산
+    public ResponseEntity<Long> modify(CustomRecipeDTO dto) throws IOException {//게시판 수정 연산
         log.info("modify");
         Long csRecipeId = customRecipeService.modify(dto);
-        uploadImgService.modify(dto.getUploadFiles(), csRecipeId);
+        uploadImgService.modifyToAwsS3(dto.getUploadFiles(), csRecipeId);
         return csRecipeId != null ? new ResponseEntity<>(csRecipeId, HttpStatus.OK) : new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
