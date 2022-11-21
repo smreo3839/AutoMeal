@@ -1,0 +1,16 @@
+
+y
+java:S1488"^Immediately return this expression instead of assigning it to the temporary variable "entity".(À «Žûÿÿÿÿ
+v
+java:S1488$"[Immediately return this expression instead of assigning it to the temporary variable "dto".(ÏþÛ“ûÿÿÿÿ
+u
+java:S1488;"ZImmediately return this expression instead of assigning it to the temporary variable "ip".(„Ú…ýúÿÿÿÿ
+o	java:S115"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(ÏˆåÛ
+K
+java:S1854#"6Remove this useless assignment to local variable "ip".(®¯ƒ
+<
+java:S1481#"'Remove this unused "ip" local variable.(®¯ƒ
+e
+java:S1128"ORemove this unused import 'org.springframework.beans.factory.annotation.Value'.(ìø›
+S
+java:S1128"8Remove this unused import 'org.zerock.ex01.entity.User'.(ÿÙ©þÿÿÿÿ
