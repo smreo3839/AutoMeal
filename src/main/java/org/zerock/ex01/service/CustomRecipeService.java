@@ -12,7 +12,7 @@ public interface CustomRecipeService {
 
 
     default CustomRecipe dtoToEntity(CustomRecipeDTO dto) {
-        User user = User.builder().user_email(dto.getUser_email()).build();
+        User user = User.builder().userEmail(dto.getUser_email()).build();
         CustomRecipe entity = CustomRecipe.builder()
                 .csRecipeId(dto.getCsRecipeId())
                 .writer(user)
@@ -29,8 +29,8 @@ public interface CustomRecipeService {
 
         CustomRecipeDTO dto = CustomRecipeDTO.builder()
                 .csRecipeId(customRecipe.getCsRecipeId())
-                .user_email(user.getUser_email())
-                .nick_name(user.getNick_name())
+                .user_email(user.getUserEmail())
+                .nick_name(user.getNickName())
                 .recipeT_title(customRecipe.getRecipeT_title())
                 .recipe_content(customRecipe.getRecipe_content())
                 .regDate(customRecipe.getRegDate())

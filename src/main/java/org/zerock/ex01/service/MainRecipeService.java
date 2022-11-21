@@ -8,7 +8,7 @@ import org.zerock.ex01.entity.User;
 
 public interface MainRecipeService {
     default RecipeBookMark dtoToEntity(RecipeBookMarkDTO dto) {
-        User user = User.builder().user_email(dto.getUser_email()).build();
+        User user = User.builder().userEmail(dto.getUser_email()).build();
         RecipeBookMark entity = RecipeBookMark.builder().recipe_id(dto.getRecipe_id()).user(user).recipeDone(dto.isRecipe_done()).book_mark(dto.isBook_mark()).build();
         return entity;
     }
@@ -17,8 +17,8 @@ public interface MainRecipeService {
 
         CustomRecipeDTO dto = CustomRecipeDTO.builder()
                 .csRecipeId(customRecipe.getCsRecipeId())
-                .user_email(user.getUser_email())
-                .nick_name(user.getNick_name())
+                .user_email(user.getUserEmail())
+                .nick_name(user.getNickName())
                 .recipeT_title(customRecipe.getRecipeT_title())
                 .recipe_content(customRecipe.getRecipe_content())
                 .regDate(customRecipe.getRegDate())

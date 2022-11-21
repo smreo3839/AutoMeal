@@ -28,7 +28,7 @@ public class CustomRecipeRepositoryTests {
     public void testCustomRecipeSave() {//입력 테스트
         System.out.println(customRecipeRepository.getClass().getName());
         for (int i = 0; i < 100; i++) {
-            User user = User.builder().user_email("test" + i + "@gmail.com").build();
+            User user = User.builder().userEmail("test" + i + "@gmail.com").build();
             CustomRecipe entity = CustomRecipe.builder().recipeT_title("customRecipe 테스트 제목입니다" + i)
                     .recipe_content("customRecipe 테스트 내용입니다" + i).writer(user).build();
             customRecipeRepository.save(entity);

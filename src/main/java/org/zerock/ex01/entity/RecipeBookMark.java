@@ -21,7 +21,7 @@ public class RecipeBookMark {
     private boolean recipeDone;//해당 레시피 조리 여부
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_email", referencedColumnName = "user_email")
+    @JoinColumn(name = "user_email")
         /*
         연관관계의 주인은 mappedby 를 사용하지 않는다.
         연관관계의 주인은 외래키가 있는 쪽이 주인이 된다.

@@ -41,7 +41,7 @@ public class SearchBoardRepositoryImpl extends QuerydslRepositorySupport impleme
         jpqlQuery.leftJoin(reply).on(reply.custom_recipe.eq(customRecipe));//(CustomRecipeReply entity의 fk = CustomRecipe entity의 pk) 조건의 left join 연산
 
 
-        JPQLQuery<Tuple> tuple = jpqlQuery.select(customRecipe, user.user_email, reply.count());
+        JPQLQuery<Tuple> tuple = jpqlQuery.select(customRecipe, user.userEmail, reply.count());
         tuple.groupBy(customRecipe);
 
         log.info("---------------------------");
@@ -88,7 +88,7 @@ public class SearchBoardRepositoryImpl extends QuerydslRepositorySupport impleme
                         conditionBuilder.or(customRecipe.recipeT_title.contains(keyword));
                         break;
                     case "w":
-                        conditionBuilder.or(user.user_email.contains(keyword));
+                        conditionBuilder.or(user.userEmail.contains(keyword));
                         break;
                     case "c":
                         conditionBuilder.or(customRecipe.recipe_content.contains(keyword));

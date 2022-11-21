@@ -46,13 +46,13 @@ public class ApiFoodRecipeServiceImpl implements ApiFoodRecipeService {
         log.info(map);
         //map = checkBookMark(dto, map);
         if (dto != null) {
-            map.put("BookMarkList", recipeBookMarkRepository.findAllBookMark(dto.getUser_email()));
+            map.put("BookMarkList", recipeBookMarkRepository.findAllBookMark(dto.getUserEmail()));
         }
         return map;
     }
 
     public Map<String, Object> checkBookMark(UserDTO dto, Map<String, Object> map) {
-        List<String> checkList = recipeBookMarkRepository.findAllBookMark(dto.getUser_email());
+        List<String> checkList = recipeBookMarkRepository.findAllBookMark(dto.getUserEmail());
         List<Map<String, Object>> list = (List<Map<String, Object>>) map.get("results");
         List Resultlist = list.stream().map(obj -> check(obj, checkList.contains(obj.get("id").toString()))).collect(Collectors.toList());
         log.info(Resultlist);

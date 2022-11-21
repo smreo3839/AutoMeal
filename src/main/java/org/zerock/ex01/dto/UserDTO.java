@@ -14,12 +14,12 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 public class UserDTO {
-    private String user_email;//유저 이메일
-    private String phone_num;//전화번호
+    private String userEmail;//유저 이메일
+    private String phoneNum;//전화번호
     private String address;//주소
     private String token;//간편 로그인 토큰
     private String img;//프로필
     private String diet;//유저 식단 정보
-    private String nick_name;//유저 닉네임
+    private String nickName;//유저 닉네임
 
 }

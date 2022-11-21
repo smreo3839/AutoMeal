@@ -13,7 +13,7 @@ public class ApiFoodRecipeServiceTests {
 
     @Test
     public void checkBookMark() {
-        UserDTO user = UserDTO.builder().user_email("test10@gmail.com").build();
+        UserDTO user = UserDTO.builder().userEmail("test10@gmail.com").build();
         service.searchRecipes(user, "pasta");
     }
 }

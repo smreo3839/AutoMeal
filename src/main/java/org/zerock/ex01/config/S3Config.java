@@ -22,7 +22,6 @@ public class S3Config {
 
     @Bean
     public AmazonS3 amazonS3Client() {//AWS 설정 클래스 작성
-        //AWS 설정 클래스 작성
         AWSCredentials credentials = new BasicAWSCredentials(accessKey, secretKey);
 
         return AmazonS3ClientBuilder
