@@ -74,4 +74,6 @@ public interface UploadImgService {
 
     @Transactional
     void modify(MultipartFile[] uploadFiles, Long num);
+
+    void modifyToAwsS3(MultipartFile[] uploadFiles, Long num) throws IOException;
 }
