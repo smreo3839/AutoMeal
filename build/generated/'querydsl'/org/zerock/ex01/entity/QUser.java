@@ -26,15 +26,15 @@ public class QUser extends EntityPathBase<User> {
 
     public final StringPath img = createString("img");
 
-    public final StringPath nick_name = createString("nick_name");
+    public final StringPath nickName = createString("nickName");
 
-    public final StringPath phone_num = createString("phone_num");
+    public final StringPath phoneNum = createString("phoneNum");
 
     public final ListPath<RecipeBookMark, QRecipeBookMark> recipeBookMarks = this.<RecipeBookMark, QRecipeBookMark>createList("recipeBookMarks", RecipeBookMark.class, QRecipeBookMark.class, PathInits.DIRECT2);
 
     public final StringPath token = createString("token");
 
-    public final StringPath user_email = createString("user_email");
+    public final StringPath userEmail = createString("userEmail");
 
     public QUser(String variable) {
         super(User.class, forVariable(variable));

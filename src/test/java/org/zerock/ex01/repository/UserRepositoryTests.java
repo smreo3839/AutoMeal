@@ -22,7 +22,7 @@ public class UserRepositoryTests {
     public void testClass() {
         System.out.println(userRepository.getClass().getName());
         for (int i = 0; i < 100; i++) {
-            User user = User.builder().user_email("test" + i + "@gmail.com").nick_name("USER"+i).build();
+            User user = User.builder().userEmail("test" + i + "@gmail.com").nickName("USER"+i).build();
             userRepository.save(user);
         }
 

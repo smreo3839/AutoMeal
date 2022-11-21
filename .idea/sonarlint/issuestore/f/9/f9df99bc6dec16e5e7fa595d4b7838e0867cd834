@@ -1,7 +1,0 @@
-
-t
-java:S1488"^Immediately return this expression instead of assigning it to the temporary variable "entity".(Åƒ¼ø
-v
-java:S1488"[Immediately return this expression instead of assigning it to the temporary variable "dto".(õìÔüÿÿÿÿÿ
-i	java:S100#"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÊÙ¾J8òîà›É0
-o	java:S100%"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(òÃæ¬ùÿÿÿÿ8Ø£ÆÉ0
