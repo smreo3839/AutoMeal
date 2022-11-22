@@ -27,10 +27,15 @@ public class ProductService {
     }
 
     //상품 품번으로 상품 찾기
-    public List<ProductEntity> getProductByProductId(final Long productId){
+//    public List<ProductEntity> getProductByProductId(final Long productId){
+//        log.info("상품 품번으로 찾기");
+//        return repository.findByProductId(productId);
+//    }
+    public ProductEntity getProductByProductId(final Long productId){
         log.info("상품 품번으로 찾기");
         return repository.findByProductId(productId);
     }
+
 
     //쇼핑몰연계를위한 상품 목록 찾기
     public List<ProductEntity> getProductByProductCategory(final String productCategory){

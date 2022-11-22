@@ -45,8 +45,9 @@ public class ProductController {
     public ResponseEntity<?> getProductFindByPId(@RequestParam Long productId) {
         log.info("getProductByPId called");
 
-        return anything(service.getProductByProductId(productId));
+        //return anything(service.getProductByProductId(productId));
 
+        return ResponseEntity.ok().body(service.getProductByProductId(productId));
     }
 
     //쇼핑몰연계를 위한 상품 찾기

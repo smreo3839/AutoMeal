@@ -57,4 +57,11 @@ public class Order {
         }
         return  totalPrice;
     }
+
+    public void cancelOrder(){
+        this.orderStatus=OrderStatus.CANCEL;
+    }
+
+
+
 }
