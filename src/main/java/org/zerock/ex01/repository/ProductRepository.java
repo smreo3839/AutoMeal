@@ -12,7 +12,9 @@ import java.util.List;
 public interface ProductRepository extends JpaRepository<ProductEntity,Long > {
 
     //상품아이디로 상품 찾기
-    List<ProductEntity> findByProductId(Long productId);
+    //List<ProductEntity> findByProductId(Long productId);
+
+    ProductEntity findByProductId(Long productId);
 
     //상품명으로 상품 찾기
     @Query("SELECT p FROM ProductEntity p where p.productName like %:productName% order by p.price desc")

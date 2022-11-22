@@ -25,4 +25,18 @@ public class CartItem {
 
     private int count;
 
+    public static CartItem createCartItem(Cart cart,ProductEntity product,int count){
+        CartItem cartItem = new CartItem();
+        cartItem.setCart(cart);
+        cartItem.setProduct(product);
+        cartItem.setCount(count);
+        return cartItem;
+    }
+
+    //기존 장바구니에 담겨있는 상품 추가 수량할 때 사용
+    public void addCount(int count){
+        this.count+=count;
+    }
+
+
 }
