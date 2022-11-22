@@ -6,8 +6,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
 import org.springframework.stereotype.Service;
+import org.zerock.ex01.dto.MainRecipeDTO;
 import org.zerock.ex01.dto.UserDTO;
-import org.zerock.ex01.entity.RecipeBookMark;
 import org.zerock.ex01.repository.RecipeBookMarkRepository;
 
 
@@ -40,18 +40,31 @@ public class ApiFoodRecipeServiceImpl implements ApiFoodRecipeService {
     }
 
     @Override
-    public Map<String, Object> searchRecipes(UserDTO dto, String query) {
+    public Map<String, Object> searchRecipes(UserDTO userDTO, MainRecipeDTO recipeDTO) {
         log.info("searchRecipes");
-        Map<String, Object> map = sendGetRequestToApi("https://api.spoonacular.com/recipes/complexSearch?query=" + query + "&number=100&sort=popularity");
+        // ObjectMapper
+        ObjectMapper objectMapper = new ObjectMapper();
+        Map result = objectMapper.convertValue(recipeDTO, Map.class);
+        String strReuslt = "";
+        for (Object key : result.keySet()) {
+            Object value = result.get(key);
+            if (value != null) {
+                strReuslt += ("&" + key + "=" + value);
+            }
+        }
+        log.info(strReuslt);
+        Map<String, Object> map = sendGetRequestToApi("https://api.spoonacular.com/recipes/complexSearch?sort=popularity&addRecipeInformation=true" +
+                strReuslt);
         log.info(map);
         //map = checkBookMark(dto, map);
-        if (dto != null) {
-            map.put("BookMarkList", recipeBookMarkRepository.findAllBookMark(dto.getUserEmail()));
+        if (userDTO != null) {
+            map.put("BookMarkList", recipeBookMarkRepository.findAllBookMark(userDTO.getUserEmail()));
+            map.put("makePageList", recipeDTO.makePageList((Integer) map.get("totalResults")));
         }
         return map;
     }
 
-    public Map<String, Object> checkBookMark(UserDTO dto, Map<String, Object> map) {
+    public Map<String, Object> checkBookMark(UserDTO dto, Map<String, Object> map) {//api 레시피 리스트들과 db 북마크 리스트 비교
         List<String> checkList = recipeBookMarkRepository.findAllBookMark(dto.getUserEmail());
         List<Map<String, Object>> list = (List<Map<String, Object>>) map.get("results");
         List Resultlist = list.stream().map(obj -> check(obj, checkList.contains(obj.get("id").toString()))).collect(Collectors.toList());
