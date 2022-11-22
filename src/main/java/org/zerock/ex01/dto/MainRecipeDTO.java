@@ -40,7 +40,7 @@ public class MainRecipeDTO {
     public Map<String, Object> makePageList(int total) {
         Map<String, Object> map = new HashMap<>();
         map.put("page", offset);
-        int totalPage = total / number;
+        int totalPage = (int)(Math.ceil(total / 10.0));
 
         //temp end page
         int tempEnd = (int) (Math.ceil(offset / 10.0)) * 10;

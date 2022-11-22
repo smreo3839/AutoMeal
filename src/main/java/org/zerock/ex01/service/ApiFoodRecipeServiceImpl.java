@@ -64,17 +64,17 @@ public class ApiFoodRecipeServiceImpl implements ApiFoodRecipeService {
         return map;
     }
 
-    public Map<String, Object> checkBookMark(UserDTO dto, Map<String, Object> map) {//api 레시피 리스트들과 db 북마크 리스트 비교
-        List<String> checkList = recipeBookMarkRepository.findAllBookMark(dto.getUserEmail());
-        List<Map<String, Object>> list = (List<Map<String, Object>>) map.get("results");
-        List Resultlist = list.stream().map(obj -> check(obj, checkList.contains(obj.get("id").toString()))).collect(Collectors.toList());
-        log.info(Resultlist);
-        return null;
-    }
-
-    public Map<String, Object> check(Map<String, Object> map, boolean flag) {
-        map.put("checkBookMark", flag);
-        return map;
-    }
+//    public Map<String, Object> checkBookMark(UserDTO dto, Map<String, Object> map) {//api 레시피 리스트들과 db 북마크 리스트 비교
+//        List<String> checkList = recipeBookMarkRepository.findAllBookMark(dto.getUserEmail());
+//        List<Map<String, Object>> list = (List<Map<String, Object>>) map.get("results");
+//        List Resultlist = list.stream().map(obj -> check(obj, checkList.contains(obj.get("id").toString()))).collect(Collectors.toList());
+//        log.info(Resultlist);
+//        return null;
+//    }
+//
+//    public Map<String, Object> check(Map<String, Object> map, boolean flag) {
+//        map.put("checkBookMark", flag);
+//        return map;
+//    }
 
 }
