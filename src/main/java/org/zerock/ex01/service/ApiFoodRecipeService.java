@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.*;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
+import org.zerock.ex01.dto.MainRecipeDTO;
 import org.zerock.ex01.dto.UserDTO;
 
 import java.util.Map;
@@ -37,5 +38,5 @@ public interface ApiFoodRecipeService {
     Map<String, Object> getDetailRecipe(String recipeId);
 
 
-    Map<String, Object> searchRecipes(UserDTO dto, String query);
+    Map<String, Object> searchRecipes(UserDTO userDTO, MainRecipeDTO recipeDTO);
 }

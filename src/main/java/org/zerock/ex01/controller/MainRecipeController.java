@@ -6,6 +6,7 @@ import org.apache.tomcat.jni.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.zerock.ex01.dto.MainRecipeDTO;
 import org.zerock.ex01.dto.RecipeBookMarkDTO;
 import org.zerock.ex01.dto.UserDTO;
 import org.zerock.ex01.service.ApiFoodRecipeServiceImpl;
@@ -35,20 +36,20 @@ public class MainRecipeController {
     }
 
     @PostMapping("searchRecipes")
-    public Map searchRecipes(UserDTO user, @RequestParam("query") String query) {//해당 recipeId에 해당하는 상세 정보(레시피 id)
+    public Map searchRecipes(UserDTO user, MainRecipeDTO dto) {//해당 음식 이름에 해당하는 레시피들 정보
         log.info("searchRecipes");
-        return apiFoodRecipeService.searchRecipes(user, query);
+        return apiFoodRecipeService.searchRecipes(user, dto);
     }
 
     @PostMapping("ChangeBookmark")
-    public ResponseEntity<Boolean> changeBookmark(RecipeBookMarkDTO dto) {//해당 recipeId에 해당하는 상세 정보(레시피 id,유저 이메일)
+    public ResponseEntity<Boolean> changeBookmark(RecipeBookMarkDTO dto) {//해당 recipeId 레시피를 북마크 등록 및 취소
         log.info("changeBookmark");
         mainRecipeService.ChangeBookmark(dto);
         return new ResponseEntity<>(true, HttpStatus.OK);
     }
 
     @PostMapping("ChangeRecipeDone")
-    public ResponseEntity<Boolean> changeRecipeDone(RecipeBookMarkDTO dto) {//해당 recipeId에 해당하는 상세 정보(레시피 id,유저 이메일)
+    public ResponseEntity<Boolean> changeRecipeDone(RecipeBookMarkDTO dto) {//해당 recipeId 레시피를 made It 등록 및 취소
         log.info("changeRecipeDone");
         mainRecipeService.ChangeRecipeDone(dto);
         return new ResponseEntity<>(true, HttpStatus.OK);

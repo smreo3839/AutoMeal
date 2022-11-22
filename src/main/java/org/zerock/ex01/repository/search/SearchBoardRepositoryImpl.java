@@ -88,7 +88,7 @@ public class SearchBoardRepositoryImpl extends QuerydslRepositorySupport impleme
                         conditionBuilder.or(customRecipe.recipeT_title.contains(keyword));
                         break;
                     case "w":
-                        conditionBuilder.or(user.userEmail.contains(keyword));
+                        conditionBuilder.or(user.nickName.contains(keyword));
                         break;
                     case "c":
                         conditionBuilder.or(customRecipe.recipe_content.contains(keyword));
