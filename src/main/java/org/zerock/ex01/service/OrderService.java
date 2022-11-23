@@ -86,6 +86,17 @@ public class OrderService {
         order.cancelOrder();
     }
 
+    public Order orders(List<OrderDTO> orderDTOList, String email){
+        User user =userRepository.findByUserEmail(email);
+        List<OrderProduct> orderProductList =new ArrayList<>();
 
+        for(OrderDTO orderDto : orderDTOList){
+            ProductEntity product=productRepository.findByProductId(orderDto.getProductId());
 
+            OrderProduct orderProduct=OrderProduct.createOrderProduct(product,orderDto.getCount());
+            orderProductList.add(orderProduct);
+        }
+        Order order = Order.createOrder(user,orderProductList);
+        return orderRepository.save(order);
+    }
 }

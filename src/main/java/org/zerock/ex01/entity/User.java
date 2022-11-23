@@ -28,7 +28,6 @@ public class User {
     private String diet;//유저 식단 정보
     @Column(length = 50)
     private String nickName;//유저 닉네임
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = {CascadeType.REMOVE}, orphanRemoval = true)
+    @OneToMany(mappedBy = "user", cascade = {CascadeType.REMOVE}, orphanRemoval = true)
     private List<RecipeBookMark> recipeBookMarks;
-
 }

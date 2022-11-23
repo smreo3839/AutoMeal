@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 import org.zerock.ex01.constant.OrderStatus;
 import org.zerock.ex01.entity.Order;
-import org.zerock.ex01.entity.OrderProduct;
 
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;

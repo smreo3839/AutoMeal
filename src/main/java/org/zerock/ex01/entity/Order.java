@@ -1,6 +1,7 @@
 package org.zerock.ex01.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import org.zerock.ex01.constant.OrderStatus;
@@ -30,6 +31,7 @@ public class Order {
     private OrderStatus orderStatus;//주문 상태
 
     //부모 엔티티의 영속성 상태 변화를 자식 엔티티에 모두 전이하는 CasscadeType옵션
+    @JsonIgnore
     @OneToMany(mappedBy="order",cascade=CascadeType.ALL,orphanRemoval = true,fetch = FetchType.LAZY)//OrderProduct에 있는 order에 의해 관리 된다는 의미 +고아객체 제거하기
     private List<OrderProduct> orderProducts =new ArrayList<>();//하나의 주문이 여러개의 주ㅡ문 상품을 갖으므로 list형 자료
 

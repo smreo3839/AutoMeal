@@ -15,6 +15,7 @@ public class OrderProduct {
     @Column(name ="order_product_id")//주문 상품 번호
     private Long id;
 
+
     @ManyToOne(fetch = FetchType.LAZY)//지연 로딩 방식 추구 이유는 데이터를 한꺼번에 조회함으로 즉시로딩 상용시 성능문제가 발생 할 수 있음
     @JoinColumn(name="product_id") //하나의 상품은 여러 주문 상품으로 들어 갈 수 있으므로 주문 상품 기준 다대일 단방향 매핑
     private ProductEntity product;
