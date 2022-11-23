@@ -27,7 +27,6 @@ public class UserService {
         }
         return userRepository.save(userEntity);
     }
-
     public User getByCredentials(final String userEmail) {
         final User originalUser = userRepository.findByUserEmail(userEmail);
         log.info("로그인해볼게용");
