@@ -17,15 +17,15 @@ import java.util.stream.IntStream;
 //@Data
 public class MainRecipeDTO {
     private String query;//레시피 검색 키워드
-    private String excludeIngredients;
-    private String includeIngredients;
-    private String equipment;
-    private String intolerances;
-    private String diet;
-    private String cuisine;
-    private String excludeCuisine;
+    private String excludeIngredients;//레시피에서 제외할 식재료
+    private String includeIngredients;//레시피에서 추가할 식재
+    private String equipment;//조리에 필요한 조리도구
+    private String intolerances;//알러지 유발 식품정보
+    private String diet;//식단 정보(ex. Vegetarian)
+    private String cuisine;//국가 별 레시피
+    private String excludeCuisine;//해당 국tt가 제외 레시피
     //    @Setter(AccessLevel.PROTECTED)
-    private int offset=1;
+    private int offset = 1;
     private int number = 10;
 
 
@@ -40,7 +40,7 @@ public class MainRecipeDTO {
     public Map<String, Object> makePageList(int total) {
         Map<String, Object> map = new HashMap<>();
         map.put("page", offset);
-        int totalPage = (int)(Math.ceil(total / 10.0));
+        int totalPage = (int) (Math.ceil(total / 10.0));
 
         //temp end page
         int tempEnd = (int) (Math.ceil(offset / 10.0)) * 10;

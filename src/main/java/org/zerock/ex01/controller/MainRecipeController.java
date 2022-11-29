@@ -5,13 +5,19 @@ import lombok.extern.log4j.Log4j2;
 import org.apache.tomcat.jni.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.zerock.ex01.dto.MainRecipeDTO;
 import org.zerock.ex01.dto.RecipeBookMarkDTO;
 import org.zerock.ex01.dto.UserDTO;
 import org.zerock.ex01.service.ApiFoodRecipeServiceImpl;
 import org.zerock.ex01.service.MainRecipeService;
 
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -36,8 +42,10 @@ public class MainRecipeController {
     }
 
     @PostMapping("searchRecipes")
-    public Map searchRecipes(UserDTO user, MainRecipeDTO dto) {//해당 음식 이름에 해당하는 레시피들 정보
+    public Map searchRecipes(UserDTO user, MainRecipeDTO dto, @AuthenticationPrincipal String userEmail) {//해당 음식 이름에 해당하는 레시피들 정보
         log.info("searchRecipes");
+        user.setUserEmail(userEmail);
+        log.info("dto check{}", dto.getIncludeIngredients());
         return apiFoodRecipeService.searchRecipes(user, dto);
     }
 
@@ -54,4 +62,15 @@ public class MainRecipeController {
         mainRecipeService.ChangeRecipeDone(dto);
         return new ResponseEntity<>(true, HttpStatus.OK);
     }
+
+    @PostMapping("ingredientDetection")
+    public List<?> ingredientDetection(MultipartFile[] uploadFile) {
+//        log.info((uploadFiles[0].getBytes()).toString());
+//        log.info(Arrays.toString(uploadFiles[0].getBytes()));
+//        log.info(new String(uploadFiles[0].getBytes(), StandardCharsets.UTF_8));
+//        return null;
+        return apiFoodRecipeService.ingredientDetection(uploadFile);
+    }
+
+
 }

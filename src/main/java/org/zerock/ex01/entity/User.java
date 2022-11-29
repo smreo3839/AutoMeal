@@ -14,15 +14,11 @@ import java.util.List;
 @ToString
 public class User {
     @Id
-    @Column(length = 50)
     private String userEmail;//유저 이메일
     @Column(length = 50)
     private String phoneNum;//전화번호
-    @Column(length = 50)
     private String address;//주소
-    @Column(length = 50)
     private String token;//간편 로그인 토큰
-    @Column(length = 50)
     private String img;//프로필
     @Column(length = 50)
     private String diet;//유저 식단 정보
@@ -30,5 +26,7 @@ public class User {
     private String nickName;//유저 닉네임
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = {CascadeType.REMOVE}, orphanRemoval = true)
     private List<RecipeBookMark> recipeBookMarks;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "writer")
+    private List<CustomRecipe> customRecipes;
 
 }

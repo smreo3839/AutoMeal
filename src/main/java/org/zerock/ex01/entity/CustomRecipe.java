@@ -29,7 +29,8 @@ public class CustomRecipe extends BaseEntity {
     private int cr_hits;//조회수
     @ManyToOne//레시피와 유저 간의 1:N 관계
     private User writer;//글쓴이 이메일
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "custom_recipe", cascade = {CascadeType.REMOVE}, orphanRemoval = true)
+//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "custom_recipe", cascade = {CascadeType.REMOVE}, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "custom_recipe")
     private List<FoodImage> foodImages;
 
 

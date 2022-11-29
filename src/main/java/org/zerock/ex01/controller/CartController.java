@@ -21,7 +21,7 @@ public class CartController {
     @Autowired
     private CartService cartService;
 
-    @PostMapping(value = "/cart")
+    @PostMapping(value = "/ ")
     public ResponseEntity<?> order(@RequestBody CartItemDTO cartItemDTO, @AuthenticationPrincipal String userId){
         Long cartItemId;
         try{

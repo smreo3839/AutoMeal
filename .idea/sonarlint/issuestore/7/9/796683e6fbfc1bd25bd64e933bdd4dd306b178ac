@@ -1,18 +1,0 @@
-
-k	java:S117$"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ò¶²åıÿÿÿÿ
-k	java:S117("QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ñÙÓ£ûÿÿÿÿ
-k	java:S117,"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‡õƒşÿÿÿÿ
-P
-java:S1191"5Use classes from the Java API instead of Sun classes.(‡œ£ÿÿÿÿÿ
-l	java:S116"XRename this field "recipeT_title" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(“Šc
-s	java:S116"YRename this field "recipe_content" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¡ì„ıÿÿÿÿ
-n	java:S116"TRename this field "like_rate" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(­Õ»©ÿÿÿÿÿ
-t	java:S116"ZRename this field "recipe_category" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¢¹†®øÿÿÿÿ
-f	java:S116"RRename this field "cr_hits" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ö‹µC
-h	java:S100$"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ò¶²åıÿÿÿÿ
-h	java:S100("NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ñÙÓ£ûÿÿÿÿ
-h	java:S100,"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‡õƒşÿÿÿÿ
-A
-java:S1128"+Remove this unused import 'java.util.Date'.(¸…¼ü
-N
-java:S1128"3Remove this unused import 'com.sun.istack.NotNull'.(‡œ£ÿÿÿÿÿ

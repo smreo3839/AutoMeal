@@ -22,6 +22,8 @@ public class QUser extends EntityPathBase<User> {
 
     public final StringPath address = createString("address");
 
+    public final ListPath<CustomRecipe, QCustomRecipe> customRecipes = this.<CustomRecipe, QCustomRecipe>createList("customRecipes", CustomRecipe.class, QCustomRecipe.class, PathInits.DIRECT2);
+
     public final StringPath diet = createString("diet");
 
     public final StringPath img = createString("img");
