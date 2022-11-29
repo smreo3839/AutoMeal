@@ -1,6 +1,5 @@
 package org.zerock.ex01.service;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import org.zerock.ex01.dto.CustomRecipeDTO;
@@ -8,7 +7,6 @@ import org.zerock.ex01.dto.PageResultDTO;
 import org.zerock.ex01.dto.UploadResultDTO;
 import org.zerock.ex01.entity.CustomRecipe;
 import org.zerock.ex01.entity.FoodImage;
-import org.zerock.ex01.entity.User;
 
 import java.io.IOException;
 import java.net.InetAddress;

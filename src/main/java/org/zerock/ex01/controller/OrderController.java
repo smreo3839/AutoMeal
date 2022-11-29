@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import org.zerock.ex01.dto.OrderDTO;
 import org.zerock.ex01.dto.OrderHistDTO;
 import org.zerock.ex01.dto.ResponseDTO;
-import org.zerock.ex01.entity.Order;
 import org.zerock.ex01.service.OrderService;
 
 import java.util.Optional;

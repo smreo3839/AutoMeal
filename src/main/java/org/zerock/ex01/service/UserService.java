@@ -27,7 +27,6 @@ public class UserService {
         }
         return userRepository.save(userEntity);
     }
-
     public User getByCredentials(final String userEmail) {
         final User originalUser = userRepository.findByUserEmail(userEmail);
         log.info("로그인해볼게용");
@@ -36,5 +35,23 @@ public class UserService {
         }
         return null;
     }
+
+    public User updateUser(final User userEntity,final String userEmail){
+        User user=userRepository.findByUserEmail(userEmail);
+        log.info("user:{}",userEntity);
+        user.updateUser(userEntity);
+        userRepository.save(user);
+        return user;
+    }
+
+    public User setDiet(final String diet,final String userEmail) {
+        User user=userRepository.findByUserEmail(userEmail);
+        user.changeDiet(diet);
+        userRepository.save(user);
+        return user;
+    }
+
+
+
 
 }

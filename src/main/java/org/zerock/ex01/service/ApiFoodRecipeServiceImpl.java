@@ -21,6 +21,10 @@ import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 @Service
 @Log4j2
 @RequiredArgsConstructor//의존성 자동주입
@@ -64,6 +68,10 @@ public class ApiFoodRecipeServiceImpl implements ApiFoodRecipeService {
             results.add(objToMap.entrySet().stream().filter(f -> f.getKey().equals("id") || f.getKey().equals("title") || f.getKey().equals("image"))
                     .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue)));
         }
+        log.info(strReuslt);
+        Map<String, Object> map = sendGetRequestToApi("https://api.spoonacular.com/recipes/complexSearch?sort=popularity&addRecipeInformation=true" +
+                strReuslt);
+        log.info(map);
         //map = checkBookMark(dto, map);
         if (userDTO != null) {
             map.put("results", results);

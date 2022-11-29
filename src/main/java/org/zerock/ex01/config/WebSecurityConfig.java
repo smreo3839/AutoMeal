@@ -7,8 +7,13 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter;
+import org.springframework.security.web.authentication.Http403ForbiddenEntryPoint;
 import org.springframework.web.filter.CorsFilter;
 import org.zerock.ex01.security.JwtAuthenticationFilter;
+import org.zerock.ex01.security.OAuthSuccessHandler;
+import org.zerock.ex01.security.OAuthUserServiceImpl;
+import org.zerock.ex01.security.RedirectUrlCookieFilter;
 
 @EnableWebSecurity
 @Slf4j
@@ -16,6 +21,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     //해줘 ~~
     @Autowired
     private JwtAuthenticationFilter jwtAuthenticationFilter;
+
+    @Autowired
+    private OAuthUserServiceImpl oAuthUserService;// 내가 만든 서비스
+
+    @Autowired
+    private OAuthSuccessHandler oAuthSuccessHandler;// Success handler
+
+    @Autowired
+    private RedirectUrlCookieFilter redirectUrlCookieFilter;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -30,10 +44,25 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests() // /와 /auth/** 경로는 인증 안해도 됨.
-                .antMatchers("/", "/auth/**", "/shop/**", "/CustomRecipe/**", "/RecipeDB/**", "/MealPlan/**").permitAll()
-//                .antMatchers("/", "/auth/**","/shop/**").permitAll()
+                //.antMatchers("/", "/auth/**","/shop/**","/CustomRecipe/**","/RecipeDB/**").permitAll()
+                .antMatchers("/", "/auth/**","/oauth2/**","/shop/**","/CustomRecipe/**","/RecipeDB/**").permitAll()
                 .anyRequest() // /와 /auth/**이외의 모든 경로는 인증 해야됨.
-                .authenticated();
+                .authenticated()
+                .and()
+                .oauth2Login()//oauth2Login 설정
+                .redirectionEndpoint()
+                .baseUri("/oauth2/callback")//callback uri 설정
+                .and()
+                .authorizationEndpoint()
+                .baseUri("/auth/authorize")//OAuth 2.0흐름을 위한 엔드포인트 추가
+                .and()
+                .userInfoEndpoint()
+                .userService(oAuthUserService)//oAuthUserServiceImpl를 유저 서비스로 등록
+                .and()
+                .successHandler(oAuthSuccessHandler)
+                .and()
+                .exceptionHandling()
+                .authenticationEntryPoint(new Http403ForbiddenEntryPoint());
 
         // filter 등록.
         // 매 요청마다
@@ -42,6 +71,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.addFilterAfter(
                 jwtAuthenticationFilter,
                 CorsFilter.class
+        );
+        http.addFilterAfter(
+                redirectUrlCookieFilter,
+                OAuth2AuthorizationRequestRedirectFilter.class//리다이렉트 되기전에 필터를 실행 시킴
         );
     }
 }

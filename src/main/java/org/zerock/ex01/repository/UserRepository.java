@@ -10,4 +10,6 @@ public interface UserRepository extends JpaRepository<User, String> {//Entitu íƒ
 
     Boolean existsByUserEmail(String userEmail);
 
+
+
 }
