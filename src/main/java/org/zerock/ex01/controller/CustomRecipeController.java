@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.zerock.ex01.dto.CustomRecipeDTO;
@@ -27,8 +28,9 @@ public class CustomRecipeController {
 
     @PostMapping("/register")
     @Transactional
-    public ResponseEntity<Long> register(CustomRecipeDTO dto) throws IOException {//게시글 작성
+    public ResponseEntity<Long> register(@AuthenticationPrincipal String userId,CustomRecipeDTO dto) throws IOException {//게시글 작성
         log.info("register");
+        dto.setUser_email(userId);
         Long csRecipeId = customRecipeService.register(dto);
         if (dto.getUploadFiles() != null) {
             uploadImgService.uploadFileToAwsS3(dto.getUploadFiles(), csRecipeId);
