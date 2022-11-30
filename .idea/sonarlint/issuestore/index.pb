@@ -31,8 +31,6 @@ c
 3src/main/java/org/zerock/ex01/dto/OrderHistDTO.java,3\1\3154afab52115c2994fa0c40cd0a8fa065a56faf
 X
 (gradle/wrapper/gradle-wrapper.properties,f\b\fbe448ebfc3eb2d4e308f6b8b043666f5b57235e
-s
-Csrc/main/java/org/zerock/ex01/security/JwtAuthenticationFilter.java,3\a\3aa5240de63f3923269f8ae1fb6937301dcaf3dc
 f
 6src/main/java/org/zerock/ex01/dto/OrderProductDTO.java,f\1\f12924b9c007f93d360046c34de81f29a67cc86a
 g

@@ -68,9 +68,6 @@ public class ApiFoodRecipeServiceImpl implements ApiFoodRecipeService {
             results.add(objToMap.entrySet().stream().filter(f -> f.getKey().equals("id") || f.getKey().equals("title") || f.getKey().equals("image"))
                     .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue)));
         }
-        log.info(strReuslt);
-        Map<String, Object> map = sendGetRequestToApi("https://api.spoonacular.com/recipes/complexSearch?sort=popularity&addRecipeInformation=true" +
-                strReuslt);
         log.info(map);
         //map = checkBookMark(dto, map);
         if (userDTO != null) {
