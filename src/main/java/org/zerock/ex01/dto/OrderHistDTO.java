@@ -14,9 +14,11 @@ import java.util.List;
 public class OrderHistDTO { // 주문 정보를 담을 OrderHistDTO
 
     public OrderHistDTO(Order order) {
-        this.orderId=order.getId();
-        this.orderDate=order.getOrderDate().format(DateTimeFormatter.ofPattern("yyy-MM-dd HH:mm"));
-        this.orderStatus=order.getOrderStatus();
+        this.orderId = order.getId();
+        this.orderDate = order.getOrderDate().format(DateTimeFormatter.ofPattern("yyy-MM-dd HH:mm"));
+        this.orderStatus = order.getOrderStatus();
+        this.imp_uid = order.getImp_uid();
+        this.preceipt_url = order.getPreceipt_url();
     }
 
     private Long orderId;
@@ -24,6 +26,9 @@ public class OrderHistDTO { // 주문 정보를 담을 OrderHistDTO
     private String orderDate; //주문날짜
 
     private OrderStatus orderStatus;// 주문상태
+    private String imp_uid;//아임포트(결제서비스 api) pk
+    private String preceipt_url;//결제 영수증 url
+
 
     //주문 상품 리스트
     private List<OrderProductDTO> orderProductDtoList = new ArrayList<>();
