@@ -74,6 +74,4 @@ public class CustomRecipeController {
         uploadImgService.modifyToAwsS3(dto.getUploadFiles(), csRecipeId);
         return csRecipeId != null ? new ResponseEntity<>(csRecipeId, HttpStatus.OK) : new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
     }
-
-
 }
