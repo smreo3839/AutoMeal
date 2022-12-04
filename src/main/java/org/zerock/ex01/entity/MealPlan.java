@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 
@@ -13,6 +15,7 @@ import javax.persistence.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+
 public class MealPlan {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)// auto imcrement
@@ -24,4 +27,6 @@ public class MealPlan {
     @ManyToOne(fetch = FetchType.LAZY)//지연 로딩 방식 추구 이유는 데이터를 한꺼번에 조회함으로 즉시로딩 상용시 성능문제가 발생 할 수 있음//일대일 단방향 매핑
     @JoinColumn(name = "user_email")
     private User user;
+    @OneToMany(mappedBy = "mealPlan", fetch = FetchType.LAZY, cascade = CascadeType.ALL,orphanRemoval  = true)
+    private List<MealPlanList> mealPlanListList = new ArrayList<MealPlanList>();
 }

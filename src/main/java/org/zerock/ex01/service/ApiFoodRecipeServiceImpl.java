@@ -70,30 +70,44 @@ public class ApiFoodRecipeServiceImpl implements ApiFoodRecipeService {
         }
         log.info(map);
         //map = checkBookMark(dto, map);
-        if (userDTO != null) {
-            map.put("results", results);
+        map.put("query", recipeDTO.getQuery());
+        map.put("results", results);
+        map.put("makePageList", recipeDTO.makePageList((Integer) temp.get("totalResults")));
+        if (userDTO.getUserEmail() != null) {
             map.put("BookMarkList", recipeBookMarkRepository.findAllBookMark(userDTO.getUserEmail()));
-            map.put("makePageList", recipeDTO.makePageList((Integer) temp.get("totalResults")));
         }
         return map;
     }
 
+    @Override
+    public Map<String, Object> foodImageClassification(UserDTO user, MultipartFile uploadFile) {//
+        String rsCatogory = null;
 
-    public Map<String, Object> returnResultMap(Map.Entry<String, Object> entry) {
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put(entry.getKey(), entry.getValue());
-        return map;
-
+        Map<String, Object> rsMap = null;
+        try {
+            rsCatogory = String.valueOf(apiSendManager.sendPostRequestImgToApi("x-api-key", apiKeysToDB, "https://api.spoonacular.com/food/images/classify", Collections.singletonMap("file", uploadFile)).get("category"));
+            log.info(rsCatogory);
+            rsMap = searchRecipes(user, MainRecipeDTO.builder().query(rsCatogory).build());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+//        if (user.getUserEmail() != null) {
+//            map.put("BookMarkList", recipeBookMarkRepository.findAllBookMark(userDTO.getUserEmail()));
+//        }
+        return rsMap;
     }
+
 
     @Override
     public List<?> ingredientDetection(MultipartFile[] uploadFiles) {
+
         ObjectMapper objectMapper = new ObjectMapper();
         List<?> resultList = null;
         List finalResult = new ArrayList<>();
+        int ingredientNum = 50;
         for (MultipartFile uploadFile : uploadFiles) {
             try {
-                resultList = (List) apiSendManager.sendPostRequestImgToApi(apiKeysToDetection, "https://api.logmeal.es/v2/image/segmentation/complete/v1.0", Collections.singletonMap("image", uploadFile)).get("segmentation_results");
+                resultList = (List) apiSendManager.sendPostRequestImgToApi("Authorization", apiKeysToDetection, "https://api.logmeal.es/v2/image/segmentation/complete/v1.0", Collections.singletonMap("image", uploadFile)).get("segmentation_results");
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -104,11 +118,16 @@ public class ApiFoodRecipeServiceImpl implements ApiFoodRecipeService {
             Map<String, Object> temp = null;
             for (Object obj : resultList) {
                 temp = objectMapper.convertValue(obj, Map.class);
+                Map<String, Integer> tempThird = new HashMap<>();
                 List detectionList = new ArrayList<>();
 
                 for (Object objSecond : (List) temp.get("recognition_results")) {
-                    Map<String, Object> tempSecond = objectMapper.convertValue(objSecond, Map.class);
-                    detectionList.add(Collections.singletonMap(tempSecond.get("name"), tempSecond.get("prob")));
+                    Map<String, String> tempSecond = objectMapper.convertValue(objSecond, Map.class);
+                    Map<String, Object> finalMap = new HashMap<>();
+                    finalMap.put("name", tempSecond.get("name"));
+                    finalMap.put("prob", String.valueOf(tempSecond.get("prob")));
+                    finalMap.put("ingredientNum", ingredientNum++);
+                    detectionList.add(finalMap);
                 }
                 temp.clear();
                 temp.put("detectionList", detectionList);//식재료 식별 리스트
@@ -119,7 +138,9 @@ public class ApiFoodRecipeServiceImpl implements ApiFoodRecipeService {
         return finalResult;
     }
 
+
     public String imageCrop(MultipartFile uploadFile, Map<String, Integer> contained_bbox) {//원본이미지를 x,y,width,height 좌표로 리사이징
+        log.info(uploadFile);
         MarvinImage imageIn = null;
         try {
             imageIn = new MarvinImage(ImageIO.read(uploadFile.getInputStream()));

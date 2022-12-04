@@ -19,6 +19,9 @@ public interface ApiFoodRecipeService {
     Map<String, Object> searchRecipes(UserDTO userDTO, MainRecipeDTO recipeDTO);
 
 
+    Map<String, Object> foodImageClassification(UserDTO user, MultipartFile uploadFile);
 
     List<?> ingredientDetection(MultipartFile[] uploadFiles);
+
+
 }

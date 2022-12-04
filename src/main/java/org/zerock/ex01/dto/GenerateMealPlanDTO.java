@@ -1,12 +1,15 @@
 package org.zerock.ex01.dto;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class MealPalnDTO {
+public class GenerateMealPlanDTO {
     private String timeFrame;//Meal타입(day or week)
     private String targetCaloreis;//제공받을 레시피들의 총 칼로리
     private String diet;//식단 정보(ex. vegetarian)
