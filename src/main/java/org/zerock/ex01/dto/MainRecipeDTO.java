@@ -24,8 +24,9 @@ public class MainRecipeDTO {
     private String diet;//식단 정보(ex. Vegetarian)
     private String cuisine;//국가 별 레시피
     private String excludeCuisine;//해당 국tt가 제외 레시피
-    //    @Setter(AccessLevel.PROTECTED)
+    @Builder.Default   //    @Setter(AccessLevel.PROTECTED)
     private int offset = 1;
+    @Builder.Default
     private int number = 10;
 
 
