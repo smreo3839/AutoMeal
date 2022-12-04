@@ -28,6 +28,7 @@ public class OrderHistDTO { // 주문 정보를 담을 OrderHistDTO
     //주문 상품 리스트
     private List<OrderProductDTO> orderProductDtoList = new ArrayList<>();
 
+
     //객체를 주문 상품 리스트에 추가하는 메소드
     public void addOrderProductDto(OrderProductDTO orderProductDto) {
         orderProductDtoList.add(orderProductDto);

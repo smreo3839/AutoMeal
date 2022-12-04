@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.Map;
+
 @Service
 public class ApiSendManager<T> {
     public String dtoConvertStringParam(T t) {
@@ -76,7 +77,7 @@ public class ApiSendManager<T> {
         return objMap;
     }
 
-    public Map<String, Object> sendPostRequestImgToApi(String apiKeys, String url, Map<String, Object> map) throws IOException {
+    public Map<String, Object> sendPostRequestImgToApi(String target, String apiKeys, String url, Map<String, Object> map) throws IOException {
         // RestTemplate 객체 생성
         RestTemplate restTemplate = new RestTemplate();
         // Header 및 Body 설정
@@ -84,7 +85,7 @@ public class ApiSendManager<T> {
         // 2. 헤더 설정 : ContentType, Accept 설정
 
         headers.setContentType(MediaType.MULTIPART_FORM_DATA);
-        headers.add("Authorization", apiKeys);
+        headers.add(target, apiKeys);
         MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
         for (String key : map.keySet()) {
             ByteArrayResource resource = new ByteArrayResource(((MultipartFile) map.get(key)).getBytes()) {
