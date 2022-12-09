@@ -35,7 +35,9 @@ public class ApiSendManager<T> {
         HttpHeaders headers = new HttpHeaders();
         // 2. 헤더 설정 : ContentType, Accept 설정
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-        headers.add("x-api-key", apiKeys);
+        if(apiKeys != null) {
+            headers.add("x-api-key", apiKeys);
+        }
 //        MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
 //        body.add("number", "20");
         // 설정한 Header와 Body를 가진 HttpEntity 객체 생성
