@@ -8,7 +8,7 @@ import org.zerock.ex01.entity.FoodImage;
 
 import java.util.List;
 
-public interface FoodImageRepository extends JpaRepository<FoodImage, Long> {
+public interface  FoodImageRepository extends JpaRepository<FoodImage, Long> {
     @Query("SELECT f FROM FoodImage f WHERE  f.custom_recipe.csRecipeId =:csRecipeId")
     List<FoodImage> getImgList(Long csRecipeId);
 
