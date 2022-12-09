@@ -21,6 +21,8 @@ public interface ApiFoodRecipeService {
 
     Map<String, Object> foodImageClassification(UserDTO user, MultipartFile uploadFile);
 
+    Map<String, Object> fooImageDetectionNutritionalInfo(MultipartFile uploadFile);
+
     List<?> ingredientDetection(MultipartFile[] uploadFiles);
 
 

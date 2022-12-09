@@ -9,8 +9,9 @@ import javax.persistence.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
-@ToString(exclude = "User") //연관 관계시 항상 주의
+@Setter
+@Getter
+@ToString(exclude = "user") //연관 관계시 항상 주의
 @DynamicUpdate
 public class RecipeBookMark {
     @Id

@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.zerock.ex01.entity.CustomRecipe;
-import org.zerock.ex01.repository.search.SearchBoardRepository;
+import org.zerock.ex01.repository.qdsl.SearchBoardRepository;
 
 import java.util.List;
 
@@ -18,7 +18,7 @@ public interface CustomRecipeRepository extends JpaRepository<CustomRecipe, Long
     Object getCustomRecipeWithWriter(@Param("csRecipeId") Long csRecipeId);
 
 
-    @Query("SELECT C, R FROM CustomRecipe C LEFT JOIN CustomRecipeReply R on C = R.custom_recipe WHERE C.csRecipeId = :csRecipeId")
+    @Query("SELECT C, R FROM CustomRecipe C LEFT JOIN CustomRecipeReply R on C = R.customRecipe WHERE C.csRecipeId = :csRecipeId")
     List<Object[]> getCustomRecipeWithReply(@Param("csRecipeId") Long csRecipeId);
 
     //CustomRecipeReply테이블은 CustomRecipe테이블을 참조하나
@@ -27,14 +27,14 @@ public interface CustomRecipeRepository extends JpaRepository<CustomRecipe, Long
     @Query(value = "SELECT c, w, count(r) " +
             " FROM CustomRecipe c " +
             " LEFT JOIN c.writer w " +
-            " LEFT JOIN CustomRecipeReply r ON r.custom_recipe = c " +
+            " LEFT JOIN CustomRecipeReply r ON r.customRecipe = c " +
             " GROUP BY c",
             countQuery = "SELECT count(c) FROM CustomRecipe c")
     Page<Object[]> getCustomRecipeReplyCount(Pageable pageable); //게시물 정보,글쓴이 회원 정보, 댓글 수
 
     @Query("SELECT c, w, count(r) " +
             " FROM CustomRecipe c  LEFT JOIN c.writer w " +
-            " LEFT OUTER JOIN CustomRecipeReply r ON r.custom_recipe = c" +
+            " LEFT OUTER JOIN CustomRecipeReply r ON r.customRecipe = c" +
             " WHERE c.csRecipeId = :csRecipeId")
     Object getCustomRecipeByCsRecipeId(@Param("csRecipeId") Long csRecipeId);
 }

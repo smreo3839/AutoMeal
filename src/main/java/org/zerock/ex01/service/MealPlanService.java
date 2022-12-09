@@ -48,6 +48,7 @@ public interface MealPlanService {
                 .nutrients(nutrientsDTO)
                 .meals(entity.getMealPlanListList().stream().map(ent -> entityToMealPlanDTO(ent)).collect(Collectors.toList()))
                 .plan_id(entity.getPlanId())
+                .userEmail(entity.getUser().getUserEmail())
                 .build();
         return dto;
     }
@@ -74,7 +75,9 @@ public interface MealPlanService {
 
     void removeMealPlan(Long planId);
 
-    List<MealPlanResulttDTO> getMealPlan(String userEmail);
+    List<MealPlanResulttDTO> getMealPlanList(String userEmail);
+
+    MealPlanResulttDTO getMealPlanWithPlanId(Long planId);
 
     void ChangeStatus(Long planListId);
 

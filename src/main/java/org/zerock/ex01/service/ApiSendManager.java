@@ -1,5 +1,6 @@
 package org.zerock.ex01.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.*;
@@ -35,7 +36,8 @@ public class ApiSendManager<T> {
         HttpHeaders headers = new HttpHeaders();
         // 2. 헤더 설정 : ContentType, Accept 설정
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-        headers.add("x-api-key", apiKeys);
+        if (apiKeys != null)
+            headers.add("x-api-key", apiKeys);
 //        MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
 //        body.add("number", "20");
         // 설정한 Header와 Body를 가진 HttpEntity 객체 생성
@@ -51,21 +53,29 @@ public class ApiSendManager<T> {
         return objMap;
     }
 
-    public Map<String, Object> sendPostRequestToApi(String apiKeys, String url, Map<String, String> map) {
+    public Map<String, Object> sendPostRequestToApi(String target, String apiKeys, String url, Map<String, String> map) {
         // RestTemplate 객체 생성
         RestTemplate restTemplate = new RestTemplate();
         // Header 및 Body 설정
         HttpHeaders headers = new HttpHeaders();
         // 2. 헤더 설정 : ContentType, Accept 설정
-        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-        headers.add("x-api-key", apiKeys);
-        MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
-        for (String key : map.keySet()) {
-            body.add(key, map.get(key));
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.add(target, apiKeys);
+//        MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
+////        for (String key : map.keySet()) {
+////            body.add(key, map.get(key));
+////        }
+//        body.add("class_id", map.get("class_id"));
+        ObjectMapper mapper = new ObjectMapper();
+        String json = null;
+        try {
+            json = mapper.writeValueAsString(map);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
         }
-
         // 설정한 Header와 Body를 가진 HttpEntity 객체 생성
-        HttpEntity<MultiValueMap<String, String>> entity = new HttpEntity<>(body, headers);
+        HttpEntity<String> entity = new HttpEntity<>(json, headers);
+
 
         ResponseEntity<?> resultMap = restTemplate.exchange(url, HttpMethod.POST, entity, Object.class);
         //exchange() 메소드로 api를 호출 후 요청한 결과를 HashMap에 추가

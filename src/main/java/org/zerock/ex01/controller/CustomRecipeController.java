@@ -33,7 +33,7 @@ public class CustomRecipeController {
     public ResponseEntity<Long> register(@AuthenticationPrincipal String userId, CustomRecipeDTO dto) throws IOException {//게시글 작성
         log.info(dto);
         dto.setUser_email(userId);
-        log.info("register");
+        log.info("register userId {}", userId);
         Long csRecipeId = customRecipeService.register(dto);
         if (dto.getUploadFiles() != null) {
             uploadImgService.uploadFileToAwsS3(dto.getUploadFiles(), csRecipeId);
@@ -41,7 +41,7 @@ public class CustomRecipeController {
         return new ResponseEntity<>(csRecipeId, HttpStatus.OK);
     }
 
-    @GetMapping("/list")
+    @GetMapping("/nser/list")
     @Transactional
     public ResponseEntity<PageResultDTO> list(PageRequestDTO pageRequestDTO) {//게시글 리스트
         log.info("list");
@@ -50,7 +50,7 @@ public class CustomRecipeController {
         return new ResponseEntity<>(pageResultDTO, HttpStatus.OK);
     }
 
-    @GetMapping({"/get", "/modify"})
+    @GetMapping({"/nser/get", "/nser/modify"})
     public ResponseEntity<CustomRecipeDTO> read(@ModelAttribute("csRecipeId") Long csRecipeId, PageRequestDTO pageRequestDTO) {//게시글 상세보기, 게시글 수정 요청시 기존 값 전달
         //상세보기에서 다시 목록페이지로 돌아가기 위해 PageRequestDTO 파라미터로 지정
         log.info("read");
@@ -60,16 +60,22 @@ public class CustomRecipeController {
     }
 
     @DeleteMapping("/remove")
-    public ResponseEntity<Boolean> remove(@ModelAttribute("csRecipeId") Long csRecipeId) {
+    public ResponseEntity<?> remove(@AuthenticationPrincipal String userId, @ModelAttribute("csRecipeId") Long csRecipeId) {
         log.info("remove");
+        CustomRecipeDTO customRecipeDTO = customRecipeService.get(csRecipeId);
+        if (!customRecipeDTO.getUser_email().equals(userId))
+            return new ResponseEntity<>(false, HttpStatus.INTERNAL_SERVER_ERROR);
         customRecipeService.removeWithReplies(csRecipeId);
         return new ResponseEntity<>(true, HttpStatus.OK);
     }
 
-    @PostMapping("modify")
+    @PostMapping("/modify")
     @Transactional
-    public ResponseEntity<Long> modify(CustomRecipeDTO dto) throws IOException {//게시판 수정 연산
+    public ResponseEntity<?> modify(@AuthenticationPrincipal String userId, CustomRecipeDTO dto) throws IOException {//게시판 수정 연산
         log.info("modify");
+        CustomRecipeDTO customRecipeDTO = customRecipeService.get(dto.getCsRecipeId());
+        if (!customRecipeDTO.getUser_email().equals(userId))
+            return new ResponseEntity<>(false, HttpStatus.INTERNAL_SERVER_ERROR);
         Long csRecipeId = customRecipeService.modify(dto);
         uploadImgService.modifyToAwsS3(dto.getUploadFiles(), csRecipeId);
         return csRecipeId != null ? new ResponseEntity<>(csRecipeId, HttpStatus.OK) : new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);

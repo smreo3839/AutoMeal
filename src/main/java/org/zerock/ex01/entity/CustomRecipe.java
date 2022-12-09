@@ -27,11 +27,13 @@ public class CustomRecipe extends BaseEntity {
     @Column(length = 20)
     private String recipe_category;//레시피 타입(다이어트, 비건)
     private int cr_hits;//조회수
-    @ManyToOne//레시피와 유저 간의 1:N 관계
+    @ManyToOne(fetch = FetchType.LAZY)//레시피와 유저 간의 1:N 관계
     private User writer;//글쓴이 이메일
-//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "custom_recipe", cascade = {CascadeType.REMOVE}, orphanRemoval = true)
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "custom_recipe")
+    //    @OneToMany(fetch = FetchType.LAZY, mappedBy = "custom_recipe", cascade = {CascadeType.REMOVE}, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "custom_recipe", cascade = CascadeType.ALL)
     private List<FoodImage> foodImages;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "customRecipe", cascade = CascadeType.ALL)
+    private List<CustomRecipeReply> customRecipeReplies;
 
 
     public void changeRecipeT_title(String recipeT_title) {

@@ -24,7 +24,9 @@ public class QCustomRecipeReply extends EntityPathBase<CustomRecipeReply> {
 
     public final QBaseEntity _super = new QBaseEntity(this);
 
-    public final QCustomRecipe custom_recipe;
+    public final QCustomRecipe customRecipe;
+
+    public final StringPath imgUrl = createString("imgUrl");
 
     //inherited
     public final DateTimePath<java.time.LocalDateTime> modDate = _super.modDate;
@@ -56,7 +58,7 @@ public class QCustomRecipeReply extends EntityPathBase<CustomRecipeReply> {
 
     public QCustomRecipeReply(Class<? extends CustomRecipeReply> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.custom_recipe = inits.isInitialized("custom_recipe") ? new QCustomRecipe(forProperty("custom_recipe"), inits.get("custom_recipe")) : null;
+        this.customRecipe = inits.isInitialized("customRecipe") ? new QCustomRecipe(forProperty("customRecipe"), inits.get("customRecipe")) : null;
         this.replyer = inits.isInitialized("replyer") ? new QUser(forProperty("replyer")) : null;
     }
 

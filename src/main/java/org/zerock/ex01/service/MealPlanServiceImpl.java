@@ -68,9 +68,15 @@ public class MealPlanServiceImpl implements MealPlanService {
     }
 
     @Override
-    public List<MealPlanResulttDTO> getMealPlan(String userEmail) {
+    public List<MealPlanResulttDTO> getMealPlanList(String userEmail) {
         //해당유저의 이메일로 MealPlan 검색후 entity객체를 dto객체로 변환 후 리턴
         return mealPlanRepostiory.findByUserEmail(userEmail).stream().map(entity -> entityToMealPlanResulttDto(entity)).collect(Collectors.toList());
+    }
+
+    @Override
+    public MealPlanResulttDTO getMealPlanWithPlanId(Long planId) {
+        //해당유저의 이메일로 MealPlan 검색후 entity객체를 dto객체로 변환 후 리턴
+        return entityToMealPlanResulttDto(mealPlanRepostiory.findById(planId).get());
     }
 
     @Override

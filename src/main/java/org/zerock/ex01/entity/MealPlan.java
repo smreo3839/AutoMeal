@@ -1,9 +1,6 @@
 package org.zerock.ex01.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -15,7 +12,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-
+@ToString(exclude = "user")
 public class MealPlan {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)// auto imcrement
@@ -27,6 +24,7 @@ public class MealPlan {
     @ManyToOne(fetch = FetchType.LAZY)//지연 로딩 방식 추구 이유는 데이터를 한꺼번에 조회함으로 즉시로딩 상용시 성능문제가 발생 할 수 있음//일대일 단방향 매핑
     @JoinColumn(name = "user_email")
     private User user;
-    @OneToMany(mappedBy = "mealPlan", fetch = FetchType.LAZY, cascade = CascadeType.ALL,orphanRemoval  = true)
-    private List<MealPlanList> mealPlanListList = new ArrayList<MealPlanList>();
+    @Builder.Default
+    @OneToMany(mappedBy = "mealPlan", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<MealPlanList> mealPlanListList = new ArrayList<>();
 }

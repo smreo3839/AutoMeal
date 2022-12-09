@@ -16,6 +16,7 @@ public class PageRequestDTO {//페이지 처리 클래스
     private int size;
     private String type;
     private String keyword;
+    private Long csRecipeId;//게시글번호 (해당 게시판의 댓글들을 select할떄 필요)
 
     public PageRequestDTO() {
         this.page = 1;

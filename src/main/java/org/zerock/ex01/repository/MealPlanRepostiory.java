@@ -8,11 +8,12 @@ import java.util.List;
 
 public interface MealPlanRepostiory extends JpaRepository<MealPlan, Long> {
 
-    @Query("SELECT M FROM MealPlan M where M.user.userEmail =:userEmail")
+    @Query("SELECT M FROM MealPlan M where M.user.userEmail =:userEmail" )
     List<MealPlan> findByUserEmail(String userEmail);
 
     @Query("SELECT count (M) FROM MealPlan M where M.user.userEmail =:userEmail")
     Long countForUserEmail(String userEmail);
+
 }
 
 

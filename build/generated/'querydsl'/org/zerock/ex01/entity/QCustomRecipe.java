@@ -28,6 +28,8 @@ public class QCustomRecipe extends EntityPathBase<CustomRecipe> {
 
     public final NumberPath<Long> csRecipeId = createNumber("csRecipeId", Long.class);
 
+    public final ListPath<CustomRecipeReply, QCustomRecipeReply> customRecipeReplies = this.<CustomRecipeReply, QCustomRecipeReply>createList("customRecipeReplies", CustomRecipeReply.class, QCustomRecipeReply.class, PathInits.DIRECT2);
+
     public final ListPath<FoodImage, QFoodImage> foodImages = this.<FoodImage, QFoodImage>createList("foodImages", FoodImage.class, QFoodImage.class, PathInits.DIRECT2);
 
     public final NumberPath<Integer> like_rate = createNumber("like_rate", Integer.class);

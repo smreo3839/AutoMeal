@@ -15,4 +15,5 @@ public class MealPlanResulttDTO {
     private List<MealPlanDTO> meals;
     private NutrientsDTO nutrients;
     private Long plan_id;
+    private String userEmail;
 }

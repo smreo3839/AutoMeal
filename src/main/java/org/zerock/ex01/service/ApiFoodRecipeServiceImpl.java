@@ -97,9 +97,23 @@ public class ApiFoodRecipeServiceImpl implements ApiFoodRecipeService {
         return rsMap;
     }
 
+    @Override
+    public Map<String, Object> fooImageDetectionNutritionalInfo(MultipartFile uploadFile) {//요리 이미지 인식 후 영양 정보 리턴
+        List<Map<String, Object>> rsMap = null;
+        List<?> resultList = null;
+        try {
+            rsMap = (List<Map<String, Object>>) apiSendManager.sendPostRequestImgToApi("Authorization", apiKeysToDetection, "https://api.logmeal.es/v2/image/segmentation/complete/v1.0", Collections.singletonMap("image", uploadFile)).get("segmentation_results");
+            rsMap = (List<Map<String, Object>>) rsMap.get(0).get("recognition_results");
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        log.info(String.valueOf(rsMap.get(0).get("id")));
+        return apiSendManager.sendPostRequestToApi("Authorization", apiKeysToDetection, "https://api.logmeal.es/v2/nutrition/recipe/nutritionalInfo/v1.0", Collections.singletonMap("class_id", String.valueOf(rsMap.get(0).get("id"))));
+    }
 
     @Override
-    public List<?> ingredientDetection(MultipartFile[] uploadFiles) {
+    public List<?> ingredientDetection(MultipartFile[] uploadFiles) {//식재료 식별
 
         ObjectMapper objectMapper = new ObjectMapper();
         List<?> resultList = null;
