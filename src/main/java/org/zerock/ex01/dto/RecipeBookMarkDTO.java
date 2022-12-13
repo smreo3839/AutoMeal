@@ -15,4 +15,6 @@ public class RecipeBookMarkDTO {
     private boolean book_mark;//북마크 여부
     private boolean recipe_done;//해당 레시피 조리 여부
     private String user_email;//북마크 등록할 유저 이메일
+    private String recipe_title;//레시피 타이틀
+    private String recipe_thumbnail;//레시피 썸네일
 }

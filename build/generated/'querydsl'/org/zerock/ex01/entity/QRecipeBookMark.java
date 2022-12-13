@@ -28,6 +28,10 @@ public class QRecipeBookMark extends EntityPathBase<RecipeBookMark> {
 
     public final StringPath recipe_id = createString("recipe_id");
 
+    public final StringPath recipe_thumbnail = createString("recipe_thumbnail");
+
+    public final StringPath recipe_title = createString("recipe_title");
+
     public final BooleanPath recipeDone = createBoolean("recipeDone");
 
     public final QUser user;

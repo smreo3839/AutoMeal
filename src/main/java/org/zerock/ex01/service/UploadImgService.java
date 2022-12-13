@@ -10,9 +10,11 @@ import org.zerock.ex01.entity.FoodImage;
 
 import java.io.IOException;
 import java.net.InetAddress;
+import java.util.List;
 
 public interface UploadImgService {
     public static final String S3Bucket = "mkc-automeal-s3"; // Bucket 이름
+
     default FoodImage dtoToEntity(UploadResultDTO uploadResultDTO, Long num) {
         CustomRecipe customRecipe = CustomRecipe
                 .builder()
@@ -24,6 +26,7 @@ public interface UploadImgService {
                 .path(uploadResultDTO.getFolderPath())
                 .real_path(uploadResultDTO.getRealImageUrl())
                 .custom_recipe(customRecipe)
+                .inum(uploadResultDTO.getInum())
                 .build();
 
         return entity;
@@ -37,6 +40,7 @@ public interface UploadImgService {
                 .folderPath(image.getPath())
                 .fileName(image.getImgName())
                 .realImageUrl(image.getReal_path())
+                .inum(image.getInum())
                 .build();
 
         return dto;
@@ -73,5 +77,6 @@ public interface UploadImgService {
     @Transactional
     void modify(MultipartFile[] uploadFiles, Long num);
 
-    void modifyToAwsS3(MultipartFile[] uploadFiles, Long num) throws IOException;
+
+    void modifyToAwsS3(MultipartFile[] uploadFiles, Long num, List<UploadResultDTO> oldImgList) throws IOException;
 }

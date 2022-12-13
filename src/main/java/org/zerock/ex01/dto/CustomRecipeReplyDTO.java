@@ -22,4 +22,5 @@ public class CustomRecipeReplyDTO {
     private String writerNickName;//글쓴이 닉네임
     private Long csRecipeId;//게시판 번호
     private MultipartFile[] uploadFile;
+    private UserDTO writer;
 }

@@ -20,7 +20,8 @@ public class RecipeBookMark {
     private String recipe_id;//레시피 번호
     private boolean book_mark;//북마크 여부
     private boolean recipeDone;//해당 레시피 조리 여부
-
+    private String recipe_title;//레시피 타이틀
+    private String recipe_thumbnail;//레시피 썸네일
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_email")
         /*

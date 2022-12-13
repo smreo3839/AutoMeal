@@ -29,8 +29,6 @@ l
 <src/main/java/org/zerock/ex01/repository/CartRepository.java,0\a\0a24acdd06d6094b4ec1f6c5760f437575513639
 p
 @src/main/java/org/zerock/ex01/repository/CartItemRepository.java,4\e\4ebe1ae97152bc8d998cece059360e6924066846
-l
-<src/main/java/org/zerock/ex01/service/MainRecipeService.java,f\9\f9df99bc6dec16e5e7fa595d4b7838e0867cd834
 i
 9src/main/java/org/zerock/ex01/service/ProductService.java,4\b\4ba1e2ee85ed4ab41daf2ed09c13ab6ede1fdb50
 o
@@ -47,8 +45,6 @@ g
 7src/main/java/org/zerock/ex01/service/OrderService.java,8\7\87b515f2b3b340d5bcbf8b5db89a020260b1faa1
 c
 3src/main/java/org/zerock/ex01/dto/OrderHistDTO.java,3\1\3154afab52115c2994fa0c40cd0a8fa065a56faf
-d
-4src/main/java/org/zerock/ex01/dto/MainRecipeDTO.java,e\8\e8471731819728afc8571bc07ad61cdbfe120b33
 c
 3src/main/java/org/zerock/ex01/dto/NutrientsDTO.java,d\9\d9ca6592e632082d8b759659e3ec83cad054cf40
 a
@@ -59,7 +55,5 @@ b
 2src/main/java/org/zerock/ex01/entity/CartItem.java,b\4\b43fe0e4f6f026c3e4f47d3c4d35da1c6636669e
 f
 6src/main/java/org/zerock/ex01/config/WebMvcConfig.java,1\5\152ed8f4b8d965b702e54c2fcb1b58d7fe5985b7
-c
-3src/main/java/org/zerock/ex01/entity/FoodImage.java,3\7\377638f1a8532d65850655937c4147ef65ae2f3e
 f
 6src/main/java/org/zerock/ex01/service/CartService.java,f\9\f927854104e2b73de6b46b417fe3b2aa4a5c67de

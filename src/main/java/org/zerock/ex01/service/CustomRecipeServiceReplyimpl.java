@@ -6,11 +6,17 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.zerock.ex01.dto.CustomRecipeDTO;
 import org.zerock.ex01.dto.CustomRecipeReplyDTO;
 import org.zerock.ex01.dto.PageRequestDTO;
 import org.zerock.ex01.entity.CustomRecipe;
 import org.zerock.ex01.entity.CustomRecipeReply;
 import org.zerock.ex01.repository.CustomRecipeReplyRepository;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 @Log4j2
@@ -19,12 +25,20 @@ public class CustomRecipeServiceReplyimpl implements CustomRecipeServiceReply {
     private final CustomRecipeReplyRepository repository;
 
     @Override
-    public Slice<CustomRecipeReply> getList(PageRequestDTO requestDTO) {
+    public Map getList(PageRequestDTO requestDTO) {
         Pageable pageable = requestDTO.getPageable(Sort.by("rp_num").descending());//정렬 기준을 매개변수 값으로 넘기고 pageRequest 객체 생성
         Slice<CustomRecipeReply> result = repository.selectCustomRecipeReplyBySlice(requestDTO.getCsRecipeId(), pageable);
+        List<CustomRecipeReplyDTO> dtoList = result.getContent().stream().map(entity -> entityToDto(entity)).collect(Collectors.toList());
+        Map<String, Object> FinalResult = new HashMap<>();
+        FinalResult.put("content", dtoList);
+        FinalResult.put("pageable", result.getPageable());
+        FinalResult.put("sort", result.getSort());
+        FinalResult.put("first", result.isFirst());
+        FinalResult.put("last", result.isLast());
+        FinalResult.put("empty", result.isEmpty());
         //Function<CustomRecipeReply, CustomRecipeReplyDTO> fn = (entity -> entityToDto(entity));
 
-        return result;
+        return FinalResult;
     }
 
     @Override
@@ -35,4 +49,16 @@ public class CustomRecipeServiceReplyimpl implements CustomRecipeServiceReply {
         repository.save(entity);
         return entity.getRp_num();
     }
+
+    @Override
+    public void removeWithReplies(CustomRecipeReplyDTO dto) {
+        repository.deleteById(dto.getRp_num());
+    }
+
+    @Override
+    public CustomRecipeReplyDTO get(CustomRecipeReplyDTO dto) {
+        return entityToDto(repository.findById(dto.getRp_num()).get());
+    }
+
+
 }
