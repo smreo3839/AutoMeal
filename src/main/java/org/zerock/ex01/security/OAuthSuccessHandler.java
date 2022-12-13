@@ -20,8 +20,8 @@ import static org.zerock.ex01.security.RedirectUrlCookieFilter.REDIRECT_URI_PARA
 @AllArgsConstructor
 public class OAuthSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
-    private static final String LOCAL_REDIRECT_URL="http://localhost:3000";
-    //private static final String LOCAL_REDIRECT_URL="http://127.0.0.1:5173";//성현
+    //private static final String LOCAL_REDIRECT_URL="http://localhost:3000";
+    private static final String LOCAL_REDIRECT_URL="http://127.0.0.1:5173";//성현
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
         log.info("인증 완료");

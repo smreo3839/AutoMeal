@@ -41,7 +41,7 @@ public class OrderController {
     public ResponseEntity<?> orderHist(@PathVariable("page") Optional<Integer> page, @AuthenticationPrincipal String userId, Model model) {
         log.info("구매이력 조회");
 
-        Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 4);//한번에 주문 개수를 4개로 제한
+        Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 10);//한번에 주문 개수를 4개로 제한
         Page<OrderHistDTO> ordersHistDtoList = orderService.getOrderList(userId, pageable);
 
         model.addAttribute("orders", ordersHistDtoList);
