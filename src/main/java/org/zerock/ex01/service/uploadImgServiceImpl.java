@@ -21,8 +21,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -146,21 +145,26 @@ public class uploadImgServiceImpl implements UploadImgService {
 
     @Override
     public void modify(MultipartFile[] uploadFiles, Long num) {
-        foodImageRepository.delImgList(num);
+        //foodImageRepository.delImgList(num);
         uploadFile(uploadFiles, num);
     }
 
     @Override
-    public void modifyToAwsS3(MultipartFile[] uploadFiles, Long num) throws IOException {
+    public void modifyToAwsS3(MultipartFile[] uploadFiles, Long num, List<UploadResultDTO> oldImgList) throws IOException {
         List<FoodImage> list = foodImageRepository.getImgList(num);//수정할 게시글의 이미지 리스트 가져오기
-        for (FoodImage foodImage : list) {
-            try {
-                amazonS3Client.deleteObject(UploadImgService.S3Bucket, foodImage.getPath().replace(File.separatorChar, '/'));//s3의 이미지 파일들 삭제
-            } catch (AmazonServiceException e) {
-                log.info(e.getErrorMessage());
+        List<FoodImage> oldImgListEntity = oldImgList.stream().map(dto -> dtoToEntity(dto, num)).collect(Collectors.toList());
+        list.removeAll(oldImgListEntity);
+        if (!list.isEmpty()) {
+            for (FoodImage foodImage : list) {
+                try {
+                    amazonS3Client.deleteObject(UploadImgService.S3Bucket, foodImage.getPath().replace(File.separatorChar, '/'));//s3의 이미지 파일들 삭제
+                } catch (AmazonServiceException e) {
+                    log.info(e.getErrorMessage());
+                }
             }
         }
-        foodImageRepository.delImgList(num);//이미지 db 삭제
+
+        foodImageRepository.deleteAllInBatch(list);//이미지 db 삭제
         uploadFileToAwsS3(uploadFiles, num);//수정할 이미지 재 업로드
     }
 

@@ -68,7 +68,6 @@ public class ApiFoodRecipeServiceImpl implements ApiFoodRecipeService {
             results.add(objToMap.entrySet().stream().filter(f -> f.getKey().equals("id") || f.getKey().equals("title") || f.getKey().equals("image"))
                     .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue)));
         }
-        log.info(map);
         //map = checkBookMark(dto, map);
         map.put("query", recipeDTO.getQuery());
         map.put("results", results);
@@ -80,7 +79,7 @@ public class ApiFoodRecipeServiceImpl implements ApiFoodRecipeService {
     }
 
     @Override
-    public Map<String, Object> foodImageClassification(UserDTO user, MultipartFile uploadFile) {//
+        public Map<String, Object> foodImageClassification(UserDTO user, MultipartFile uploadFile) {//
         String rsCatogory = null;
 
         Map<String, Object> rsMap = null;

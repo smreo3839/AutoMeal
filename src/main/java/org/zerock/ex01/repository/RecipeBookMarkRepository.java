@@ -10,8 +10,11 @@ public interface RecipeBookMarkRepository extends JpaRepository<RecipeBookMark, 
     @Query("SELECT rbm FROM RecipeBookMark rbm WHERE rbm.recipe_id =:recipe_id and rbm.user.userEmail =:user_email")
     RecipeBookMark getBookMark(String recipe_id, String user_email);//Entitu 타입 정보와 기본키의 자료형 지정
 
-    @Query("SELECT rbm.recipe_id FROM RecipeBookMark rbm WHERE rbm.user.userEmail =:user_email and rbm.book_mark=true")
-    List<String> findAllBookMark(String user_email);//Entitu 타입 정보와 기본키의 자료형 지정
+    @Query("SELECT rbm FROM RecipeBookMark rbm WHERE rbm.user.userEmail =:user_email and rbm.book_mark=true")
+    List<RecipeBookMark> findAllBookMark(String user_email);//Entitu 타입 정보와 기본키의 자료형 지정
+
+     @Query("SELECT rbm FROM RecipeBookMark rbm WHERE rbm.user.userEmail =:user_email and rbm.recipeDone=true")
+    List<RecipeBookMark> findAllRecipeDone(String user_email);//Entitu 타입 정보와 기본키의 자료형 지정
     //인터페이스 선언만으로 자동으로 스프링 빈으로 등록
 
 }

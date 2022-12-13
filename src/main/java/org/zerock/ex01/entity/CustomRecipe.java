@@ -30,9 +30,9 @@ public class CustomRecipe extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)//레시피와 유저 간의 1:N 관계
     private User writer;//글쓴이 이메일
     //    @OneToMany(fetch = FetchType.LAZY, mappedBy = "custom_recipe", cascade = {CascadeType.REMOVE}, orphanRemoval = true)
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "custom_recipe", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "custom_recipe", cascade = CascadeType.ALL,orphanRemoval = true)
     private List<FoodImage> foodImages;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "customRecipe", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "customRecipe", cascade = CascadeType.ALL,orphanRemoval = true)
     private List<CustomRecipeReply> customRecipeReplies;
 
 

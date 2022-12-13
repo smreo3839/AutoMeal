@@ -4,12 +4,19 @@ package org.zerock.ex01.service;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.zerock.ex01.dto.RecipeBookMarkDTO;
+import org.zerock.ex01.dto.UserDTO;
+import org.zerock.ex01.entity.RecipeBookMark;
 import org.zerock.ex01.entity.User;
+import org.zerock.ex01.repository.RecipeBookMarkRepository;
 import org.zerock.ex01.repository.UserRepository;
 import org.json.simple.parser.ParseException;
+
 import java.io.IOException;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -20,6 +27,8 @@ public class UserService {
     private UserRepository userRepository;
     @Autowired
     private PayMentManager payMentManager;
+    @Autowired
+    private RecipeBookMarkRepository recipeBookMarkRepository;
 
     //회원 생성하기
     public User create(final User userEntity) {
@@ -65,4 +74,24 @@ public class UserService {
         return map;
     }
 
+    public Map<String, Object> findAllBookMark(String userId) {
+        return Collections.singletonMap("BookMarkList", recipeBookMarkRepository.findAllBookMark(userId).stream().map(entity -> bookMarkEntityToDto(entity)).collect(Collectors.toList()));
+    }
+
+    public Map<String, Object> findAllChangeRecipeDone(String userId) {
+        return Collections.singletonMap("BookMarkList", recipeBookMarkRepository.findAllRecipeDone(userId));
+    }
+
+    public RecipeBookMarkDTO bookMarkEntityToDto(RecipeBookMark entity) {
+        RecipeBookMarkDTO dto = RecipeBookMarkDTO.builder()
+                .bmNum(entity.getBmNum())
+                .recipe_id(entity.getRecipe_id())
+                .book_mark(entity.isBook_mark())
+                .recipe_done(entity.isRecipeDone())
+                .user_email(entity.getUser().getUserEmail())
+                .recipe_title(entity.getRecipe_title())
+                .recipe_thumbnail(entity.getRecipe_thumbnail())
+                .build();
+        return dto;
+    }
 }

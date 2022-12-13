@@ -50,14 +50,14 @@ public class MainRecipeController {
 
     @PostMapping("/nser/searchRecipes")
     public Map searchRecipes(UserDTO user, MainRecipeDTO dto) {//해당 음식 이름에 해당하는 레시피들 정보 비로그인 유저 전용
-        log.info("searchRecipes");
+        log.info("/nser/searchRecipes");
         log.info("dto check{}", dto.getIncludeIngredients());
         return apiFoodRecipeService.searchRecipes(user, dto);
     }
 
     @PostMapping("/ChangeBookmark")
     public ResponseEntity<Boolean> changeBookmark(RecipeBookMarkDTO dto, @AuthenticationPrincipal String userId) {//해당 recipeId 레시피를 북마크 등록 및 취소
-        log.info("changeBookmark");
+        log.info("changeBookmark {}",dto.getRecipe_id());
         dto.setUser_email(userId);
         mainRecipeService.ChangeBookmark(dto);
         return new ResponseEntity<>(true, HttpStatus.OK);
@@ -92,12 +92,12 @@ public class MainRecipeController {
         return ResponseEntity.ok().body(apiFoodRecipeService.fooImageDetectionNutritionalInfo(uploadFile));
     }
 
-    @PostMapping("foodImageClassification")
-    public ResponseEntity<?> foodImageClassification(UserDTO user, MultipartFile uploadFile, @AuthenticationPrincipal String userId) {//이미지로 음식 판별
-        log.info("searchRecipes");
+    @PostMapping("/foodImageClassification")
+    public Map foodImageClassification(UserDTO user, MultipartFile uploadFile, @AuthenticationPrincipal String userId) {//이미지로 음식 판별
+        log.info("foodImageClassification");
         user.setUserEmail(userId);
-        apiFoodRecipeService.foodImageClassification(user, uploadFile);
-        return new ResponseEntity<>(true, HttpStatus.OK);
+
+        return apiFoodRecipeService.foodImageClassification(user, uploadFile);
     }
 
 }

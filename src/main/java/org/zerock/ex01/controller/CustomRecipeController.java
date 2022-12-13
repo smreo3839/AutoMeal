@@ -1,5 +1,8 @@
 package org.zerock.ex01.controller;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
@@ -10,11 +13,13 @@ import org.springframework.web.bind.annotation.*;
 import org.zerock.ex01.dto.CustomRecipeDTO;
 import org.zerock.ex01.dto.PageRequestDTO;
 import org.zerock.ex01.dto.PageResultDTO;
+import org.zerock.ex01.dto.UploadResultDTO;
 import org.zerock.ex01.service.ApiFoodRecipeServiceImpl;
 import org.zerock.ex01.service.CustomRecipeService;
 import org.zerock.ex01.service.UploadImgService;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -71,13 +76,19 @@ public class CustomRecipeController {
 
     @PostMapping("/modify")
     @Transactional
-    public ResponseEntity<?> modify(@AuthenticationPrincipal String userId, CustomRecipeDTO dto) throws IOException {//게시판 수정 연산
-        log.info("modify");
+    public ResponseEntity<?> modify(@AuthenticationPrincipal String userId, CustomRecipeDTO dto, @RequestParam("defaultUploadImgResult") String defaultUploadImgResultJson) throws IOException {//게시판 수정 연산
+        log.info("modify {}", dto);
+        ObjectMapper objectMapper = new ObjectMapper().registerModule(new SimpleModule());
+        List<UploadResultDTO> tempJsonList = objectMapper.readValue(defaultUploadImgResultJson, new TypeReference<List<UploadResultDTO>>() {
+        });
+        dto.setUploadImgResult(tempJsonList);
+
+        log.info("jsonRe{} ", tempJsonList);
         CustomRecipeDTO customRecipeDTO = customRecipeService.get(dto.getCsRecipeId());
         if (!customRecipeDTO.getUser_email().equals(userId))
             return new ResponseEntity<>(false, HttpStatus.INTERNAL_SERVER_ERROR);
         Long csRecipeId = customRecipeService.modify(dto);
-        uploadImgService.modifyToAwsS3(dto.getUploadFiles(), csRecipeId);
+        uploadImgService.modifyToAwsS3(dto.getUploadFiles(), csRecipeId, tempJsonList);
         return csRecipeId != null ? new ResponseEntity<>(csRecipeId, HttpStatus.OK) : new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

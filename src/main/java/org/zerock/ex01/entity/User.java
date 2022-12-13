@@ -29,7 +29,7 @@ public class User {
     @Column(length = 100)
     private String nickName;//유저 닉네임
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = {CascadeType.REMOVE}, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user",  cascade = CascadeType.ALL, orphanRemoval = true)
     private List<RecipeBookMark> recipeBookMarks;
 
     public void changeDiet(String diet){
