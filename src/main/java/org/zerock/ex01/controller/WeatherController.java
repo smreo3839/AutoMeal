@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.zerock.ex01.dto.GeoCodeDTO;
+import org.zerock.ex01.dto.WeatherAdDTO;
 import org.zerock.ex01.entity.WeatherAD;
 import org.zerock.ex01.service.ApiWeatherService;
 import org.zerock.ex01.service.WeatherFoodService;
@@ -30,7 +31,7 @@ public class WeatherController {
         log.info("getAD() called");
         String weather=apiWeatherService.searchWeather(geoCodeDTO);
         log.info("weather: {}",weather);
-        WeatherAD weatherAD=weatherFoodService.getWeatherFood(weather.toLowerCase());
+        WeatherAdDTO weatherAD=weatherFoodService.getWeatherFood(weather.toLowerCase());
 
         return ResponseEntity.ok().body(weatherAD);
     }
