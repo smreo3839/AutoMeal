@@ -52,6 +52,7 @@ public class CartService {
         }
     }
 
+
     @Transactional(readOnly = true)
     public List<CartDetailDTO> getCartList(String email) {
         List<CartDetailDTO> cartDetailDtoList = new ArrayList<>();

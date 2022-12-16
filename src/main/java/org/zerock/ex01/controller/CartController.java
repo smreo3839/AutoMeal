@@ -10,7 +10,9 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.zerock.ex01.dto.*;
 import org.zerock.ex01.entity.Order;
+import org.zerock.ex01.entity.ProductEntity;
 import org.zerock.ex01.service.CartService;
+import org.zerock.ex01.service.ProductService;
 
 import java.util.List;
 
@@ -22,8 +24,26 @@ public class CartController {
     @Autowired
     private CartService cartService;
 
+    @Autowired
+    private ProductService service;
+
     @PostMapping//장바구니 만들기
     public ResponseEntity<?> order(@RequestBody CartItemDTO cartItemDTO, @AuthenticationPrincipal String userId) {
+        Long cartItemId;
+        try {
+            cartItemId = cartService.addCart(cartItemDTO, userId);
+        } catch (Exception e) {
+            ResponseDTO responseDTO = ResponseDTO.builder().error(e.getMessage()).build();
+            return ResponseEntity.badRequest().body(responseDTO);
+        }
+        return ResponseEntity.ok().body(cartItemId);
+    }
+
+    @GetMapping("/orderByCate")//장바구니 만들기
+    public ResponseEntity<?> orderByCate(@RequestParam String productCategory, @AuthenticationPrincipal String userId) {
+        log.info("productCategory: " + productCategory);
+        List<ProductEntity> entities=service.getProductByProductCategory(productCategory);
+        CartItemDTO cartItemDTO = CartItemDTO.builder().productId(entities.get(0).getProductId()).count(1).build();
         Long cartItemId;
         try {
             cartItemId = cartService.addCart(cartItemDTO, userId);

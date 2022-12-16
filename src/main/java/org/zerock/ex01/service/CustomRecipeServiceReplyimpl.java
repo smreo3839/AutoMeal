@@ -64,8 +64,7 @@ public class CustomRecipeServiceReplyimpl implements CustomRecipeServiceReply {
 
     @Override
     public CustomRecipeReplyDTO get(CustomRecipeReplyDTO dto) {
-        CustomRecipeReplyDTO resultDTO = entityToDto(repository.findById(dto.getRp_num()).get());
-        return resultDTO;
+        return entityToDto(repository.findById(dto.getRp_num()).get());
     }
 
 
