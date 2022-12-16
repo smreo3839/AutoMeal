@@ -46,7 +46,7 @@ public class CustomRecipeReplyController {
     public ResponseEntity<?> remove(@AuthenticationPrincipal String userId, @RequestBody CustomRecipeReplyDTO dto) {
         log.info("remove");
         CustomRecipeReplyDTO customRecipeDTO = customRecipeServiceReply.get(dto);
-        if (!customRecipeDTO.getWriter().equals(userId))
+        if (!customRecipeDTO.getWriter().getUserEmail().equals(userId))
             return new ResponseEntity<>(false, HttpStatus.INTERNAL_SERVER_ERROR);
         customRecipeServiceReply.removeWithReplies(dto);
         return new ResponseEntity<>(true, HttpStatus.OK);

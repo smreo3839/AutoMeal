@@ -1,13 +1,16 @@
 package org.zerock.ex01.dto;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Getter
 @Setter
+@Builder
 public class CartItemDTO {
 
     @NotNull(message="상품아이디는 필수 입력값입니다")
