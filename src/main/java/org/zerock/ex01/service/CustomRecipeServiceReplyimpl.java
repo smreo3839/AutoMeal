@@ -43,8 +43,15 @@ public class CustomRecipeServiceReplyimpl implements CustomRecipeServiceReply {
 
     @Override
     public Long register(String userId, CustomRecipeReplyDTO dto) {
-        log.info("DTO");
-        CustomRecipeReply entity = dtoToEntity(userId, dto);//dto를 entity타입으로 변환
+        log.info("DTO {}", dto);
+        CustomRecipeReply entity;
+        if (dto.getRp_num() == 0) {
+            entity = dtoToEntity(userId, dto);//dto를 entity타입으로 변환
+        } else {
+            entity = repository.getOne(dto.getRp_num());
+            entity.changeRp_content(dto.getRp_content());
+        }
+
         log.info(entity);
         repository.save(entity);
         return entity.getRp_num();
@@ -57,7 +64,8 @@ public class CustomRecipeServiceReplyimpl implements CustomRecipeServiceReply {
 
     @Override
     public CustomRecipeReplyDTO get(CustomRecipeReplyDTO dto) {
-        return entityToDto(repository.findById(dto.getRp_num()).get());
+        CustomRecipeReplyDTO resultDTO = entityToDto(repository.findById(dto.getRp_num()).get());
+        return resultDTO;
     }
 
 

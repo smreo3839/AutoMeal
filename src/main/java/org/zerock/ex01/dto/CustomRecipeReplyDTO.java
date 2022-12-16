@@ -15,7 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 public class CustomRecipeReplyDTO {
-    private Long rp_num;//댓글번호
+    private Long rp_num = 0L;//댓글번호
     private String rp_content;//댓글 내용
     private String imgUrl;//댓글 이미지 경로
     private String writerEmail;//글쓴이 이메일

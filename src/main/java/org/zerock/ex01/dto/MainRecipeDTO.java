@@ -27,7 +27,7 @@ public class MainRecipeDTO {
     @Builder.Default   //    @Setter(AccessLevel.PROTECTED)
     private int offset = 1;
     @Builder.Default
-    private int number = 10;
+    private int number = 30;
 
 
 //    public void setOffset(int offset) {

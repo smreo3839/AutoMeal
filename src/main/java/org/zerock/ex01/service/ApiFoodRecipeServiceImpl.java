@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.zerock.ex01.dto.MainRecipeDTO;
+import org.zerock.ex01.dto.RecipeBookMarkDTO;
 import org.zerock.ex01.dto.UserDTO;
+import org.zerock.ex01.entity.RecipeBookMark;
 import org.zerock.ex01.repository.RecipeBookMarkRepository;
 
 import javax.imageio.ImageIO;
@@ -72,14 +74,14 @@ public class ApiFoodRecipeServiceImpl implements ApiFoodRecipeService {
         map.put("query", recipeDTO.getQuery());
         map.put("results", results);
         map.put("makePageList", recipeDTO.makePageList((Integer) temp.get("totalResults")));
-        if (userDTO.getUserEmail() != null) {
-            map.put("BookMarkList", recipeBookMarkRepository.findAllBookMark(userDTO.getUserEmail()));
+        if (userDTO != null) {
+            map.put("BookMarkList", recipeBookMarkRepository.findAllBookMark(userDTO.getUserEmail()).stream().map(entity -> bookMarkEntityToDto(entity)));
         }
         return map;
     }
 
     @Override
-        public Map<String, Object> foodImageClassification(UserDTO user, MultipartFile uploadFile) {//
+    public Map<String, Object> foodImageClassification(UserDTO user, MultipartFile uploadFile) {//
         String rsCatogory = null;
 
         Map<String, Object> rsMap = null;
@@ -101,14 +103,14 @@ public class ApiFoodRecipeServiceImpl implements ApiFoodRecipeService {
         List<Map<String, Object>> rsMap = null;
         List<?> resultList = null;
         try {
-            rsMap = (List<Map<String, Object>>) apiSendManager.sendPostRequestImgToApi("Authorization", apiKeysToDetection, "https://api.logmeal.es/v2/image/segmentation/complete/v1.0", Collections.singletonMap("image", uploadFile)).get("segmentation_results");
+            rsMap = (List<Map<String, Object>>) apiSendManager.sendPostRequestImgToApi("Authorization", apiKeysToDetection, "https://api.logmeal.es/v2/image/segmentation/complete/v1.0?language=eng", Collections.singletonMap("image", uploadFile)).get("segmentation_results");
             rsMap = (List<Map<String, Object>>) rsMap.get(0).get("recognition_results");
 
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
         log.info(String.valueOf(rsMap.get(0).get("id")));
-        return apiSendManager.sendPostRequestToApi("Authorization", apiKeysToDetection, "https://api.logmeal.es/v2/nutrition/recipe/nutritionalInfo/v1.0", Collections.singletonMap("class_id", String.valueOf(rsMap.get(0).get("id"))));
+        return apiSendManager.sendPostRequestToApi("Authorization", apiKeysToDetection, "https://api.logmeal.es/v2/image/segmentation/complete/v1.0?language=eng", Collections.singletonMap("class_id", String.valueOf(rsMap.get(0).get("id"))));
     }
 
     @Override
@@ -120,7 +122,7 @@ public class ApiFoodRecipeServiceImpl implements ApiFoodRecipeService {
         int ingredientNum = 50;
         for (MultipartFile uploadFile : uploadFiles) {
             try {
-                resultList = (List) apiSendManager.sendPostRequestImgToApi("Authorization", apiKeysToDetection, "https://api.logmeal.es/v2/image/segmentation/complete/v1.0", Collections.singletonMap("image", uploadFile)).get("segmentation_results");
+                resultList = (List) apiSendManager.sendPostRequestImgToApi("Authorization", apiKeysToDetection, "https://api.logmeal.es/v2/image/segmentation/complete/v1.0?language=eng", Collections.singletonMap("image", uploadFile)).get("segmentation_results");
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -183,7 +185,7 @@ public class ApiFoodRecipeServiceImpl implements ApiFoodRecipeService {
         return base64String;
     }
 
-//    public Map<String, Object> checkBookMark(UserDTO dto, Map<String, Object> map) {//api 레시피 리스트들과 db 북마크 리스트 비교
+    //    public Map<String, Object> checkBookMark(UserDTO dto, Map<String, Object> map) {//api 레시피 리스트들과 db 북마크 리스트 비교
 //        List<String> checkList = recipeBookMarkRepository.findAllBookMark(dto.getUserEmail());
 //        List<Map<String, Object>> list = (List<Map<String, Object>>) map.get("results");
 //        List Resultlist = list.stream().map(obj -> check(obj, checkList.contains(obj.get("id").toString()))).collect(Collectors.toList());
@@ -195,5 +197,17 @@ public class ApiFoodRecipeServiceImpl implements ApiFoodRecipeService {
 //        map.put("checkBookMark", flag);
 //        return map;
 //    }
+    public RecipeBookMarkDTO bookMarkEntityToDto(RecipeBookMark entity) {
+        RecipeBookMarkDTO dto = RecipeBookMarkDTO.builder()
+                .bmNum(entity.getBmNum())
+                .recipe_id(entity.getRecipe_id())
+                .book_mark(entity.isBook_mark())
+                .recipe_done(entity.isRecipeDone())
+                .user_email(entity.getUser().getUserEmail())
+                .recipe_title(entity.getRecipe_title())
+                .recipe_thumbnail(entity.getRecipe_thumbnail())
+                .build();
+        return dto;
+    }
 
 }

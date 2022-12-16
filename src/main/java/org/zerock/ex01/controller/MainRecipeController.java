@@ -49,10 +49,10 @@ public class MainRecipeController {
     }
 
     @PostMapping("/nser/searchRecipes")
-    public Map searchRecipes(UserDTO user, MainRecipeDTO dto) {//해당 음식 이름에 해당하는 레시피들 정보 비로그인 유저 전용
+    public Map searchRecipes( MainRecipeDTO dto) {//해당 음식 이름에 해당하는 레시피들 정보 비로그인 유저 전용
         log.info("/nser/searchRecipes");
         log.info("dto check{}", dto.getIncludeIngredients());
-        return apiFoodRecipeService.searchRecipes(user, dto);
+        return apiFoodRecipeService.searchRecipes(null, dto);
     }
 
     @PostMapping("/ChangeBookmark")

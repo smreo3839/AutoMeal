@@ -30,4 +30,8 @@ public class CustomRecipeReply extends BaseEntity {
     public CustomRecipeReply(CustomRecipeReply eachCustomRecipeReply) {
         super();
     }
+
+    public void changeRp_content(String rp_content) {
+        this.rp_content = rp_content;
+    }
 }
