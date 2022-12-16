@@ -23,6 +23,7 @@ public interface ProductRepository extends JpaRepository<ProductEntity,Long > {
     //쇼핑몰연계를 위한 세부 상품목록 찾기
    List<ProductEntity> findByProductCategory(String productCategory);
 
+
    //상품분류로 상품찾기
     List<ProductEntity> findByProductClassification(String productClassification);
 

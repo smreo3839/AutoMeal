@@ -79,7 +79,7 @@ public class UserService {
     }
 
     public Map<String, Object> findAllChangeRecipeDone(String userId) {
-        return Collections.singletonMap("BookMarkList", recipeBookMarkRepository.findAllRecipeDone(userId));
+        return Collections.singletonMap("BookMarkList", recipeBookMarkRepository.findAllRecipeDone(userId).stream().map(entity -> bookMarkEntityToDto(entity)).collect(Collectors.toList()));
     }
 
     public RecipeBookMarkDTO bookMarkEntityToDto(RecipeBookMark entity) {
