@@ -87,7 +87,7 @@ public class MainRecipeController {
     }
 
     @PostMapping("/nser/fooImageDetectionNutritionalInfo")
-    public ResponseEntity<?> fooImageDetectionNutritionalInfo(MultipartFile uploadFile) {//이미지로 음식 판별 비로그인 전용
+    public ResponseEntity<?> fooImageDetectionNutritionalInfo(MultipartFile uploadFile) {//이미지로 음식 영양소 판별
         log.info("fooImageDetectionNutritionalInfo {}", uploadFile);
         return ResponseEntity.ok().body(apiFoodRecipeService.fooImageDetectionNutritionalInfo(uploadFile));
     }

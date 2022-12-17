@@ -110,7 +110,7 @@ public class ApiFoodRecipeServiceImpl implements ApiFoodRecipeService {
             throw new RuntimeException(e);
         }
         log.info(String.valueOf(rsMap.get(0).get("id")));
-        return apiSendManager.sendPostRequestToApi("Authorization", apiKeysToDetection, "https://api.logmeal.es/v2/image/segmentation/complete/v1.0?language=eng", Collections.singletonMap("class_id", String.valueOf(rsMap.get(0).get("id"))));
+        return apiSendManager.sendPostRequestToApi("Authorization", apiKeysToDetection, "https://api.logmeal.es/v2/recipe/nutritionalInfo?language=eng", Collections.singletonMap("class_id", String.valueOf(rsMap.get(0).get("id"))));
     }
 
     @Override
