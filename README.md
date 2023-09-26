@@ -25,7 +25,7 @@
 
 |      마기창      |          박종현         |                                                                                                                 
 | :------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------------: |
-|  <img width="160px" src="https://github.com/ThrowsGG/ThrowsGG/assets/101163897/c3089ae3-5dc5-4ae2-b725-df2e52c876b4" />  |        <img width="160px" src="https://github.com/ThrowsGG/ThrowsGG/assets/101163897/10322482-ae06-49b0-abd3-1f56e2d81c49" />       | 
+|  <img width="160px" src="https://github.com/HI-JOB-IS-NULL/AutoMeal/assets/108380607/d6b62dd7-5e68-449d-a20f-53ae975712c0" />  |        <img width="160px" src="https://github.com/HI-JOB-IS-NULL/AutoMeal/assets/108380607/aa32f314-aec9-4eab-abdd-42457f1cb248" /> | 
 |   [@smreo3839](https://github.com/smreo3839)    |    [@JackyparkCode](https://github.com/JackyparkCode)  |
 | 선문대학교 컴퓨터공학부 3학년 | 선문대학교 컴퓨터공학부 3학년 |
 
